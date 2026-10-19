@@ -8,6 +8,7 @@ Mobile-first Secret Santa web app for one family. Spec, mockups and the stage pl
 - Supabase (Postgres + Auth), project ref `tuesactvqjcyetmkwysy` (eu-central-1). Hosted on Vercel (team `barlimas-projects`, project `secret-santa`).
 - Fonts via `next/font/google`: Bricolage Grotesque (`font-display`, 600/800) and Figtree (`font-sans`).
 - `src/proxy.ts` is Next 16's middleware: it refreshes the Supabase session cookie.
+- Env vars are read lazily via `src/lib/supabase/env.ts` (never at module load), so `next build` works without them. CI builds with no Supabase env on purpose.
 
 ## Supabase clients (`src/lib/supabase/`)
 
@@ -29,7 +30,8 @@ Never read `assignments` with the admin client. Results must stay private via RL
 
 - One branch per stage (`feat/01-scaffold`, `feat/02-i18n`, …), PR into `main`. Vercel builds a preview for each push.
 - npm can't reach the registry from cloud Claude sessions. Verify through GitHub Actions (`gh run view --log-failed`) and Vercel build status (`gh api repos/barlima/secret-santa/commits/<sha>/statuses`). The Vercel connector gets 403 for the team — don't rely on it.
-- No `package-lock.json` yet? CI runs `npm install` and uploads the lockfile as the `package-lock` artifact on PRs; download it (`gh run download <id> -n package-lock`) and commit it.
+- No `package-lock.json` yet: CI falls back to `npm install`. Bartek generates and commits the lockfile locally (`npm install`); cloud sessions can't (no npm registry, no artifact downloads).
+- Vercel build logs aren't reachable from cloud sessions. `vercel.json` pins the Next.js preset (the project was created before the app existed, as "Other").
 - Secrets never go into the repo or chat. `SUPABASE_SECRET_KEY` is read only in `admin.ts`.
 
 ## UI conventions
