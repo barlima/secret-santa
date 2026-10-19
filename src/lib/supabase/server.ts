@@ -2,16 +2,17 @@ import "server-only";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import type { Database } from "@/lib/database.types";
-import { supabasePublishableKey, supabaseUrl } from "./env";
+import { getSupabaseEnv } from "./env";
 
 /**
  * Supabase client for Server Components, Server Actions and Route Handlers.
  * Reads the session from cookies and acts as the signed-in user (RLS applies).
  */
 export async function createClient() {
+  const { url, publishableKey } = getSupabaseEnv();
   const cookieStore = await cookies();
 
-  return createServerClient<Database>(supabaseUrl, supabasePublishableKey, {
+  return createServerClient<Database>(url, publishableKey, {
     cookies: {
       getAll() {
         return cookieStore.getAll();

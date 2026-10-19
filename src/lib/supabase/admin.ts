@@ -1,7 +1,7 @@
 import "server-only";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/lib/database.types";
-import { supabaseUrl } from "./env";
+import { getSupabaseEnv } from "./env";
 
 /**
  * Privileged Supabase client (secret key, bypasses RLS).
@@ -15,7 +15,7 @@ export function createAdminClient() {
     throw new Error("Missing environment variable SUPABASE_SECRET_KEY.");
   }
 
-  return createClient<Database>(supabaseUrl, secretKey, {
+  return createClient<Database>(getSupabaseEnv().url, secretKey, {
     auth: {
       autoRefreshToken: false,
       persistSession: false,
