@@ -13,7 +13,13 @@ const initialState: FormState<SetPasswordError> = { error: null };
 export function SetPasswordForm({ participantId }: { participantId: string }) {
   const t = useTranslations("setPassword");
   const tCommon = useTranslations("common");
-  const [state, formAction] = useActionState(setPassword, initialState);
+  const [state, formAction] = useActionState(
+    async (prev: typeof initialState, formData: FormData) => ({
+      ...(await setPassword(prev, formData)),
+      attempt: (prev.attempt ?? 0) + 1,
+    }),
+    initialState,
+  );
 
   const passwordError =
     state.error === "tooShort"
@@ -40,6 +46,7 @@ export function SetPasswordForm({ participantId }: { participantId: string }) {
           autoComplete="new-password"
           hint={t("passwordHint", { min: PASSWORD_MIN_LENGTH })}
           error={passwordError}
+          shakeKey={state.attempt}
           autoFocus
         />
         <PasswordField
@@ -47,6 +54,7 @@ export function SetPasswordForm({ participantId }: { participantId: string }) {
           label={t("confirmLabel")}
           autoComplete="new-password"
           error={confirmError}
+          shakeKey={state.attempt}
         />
         {formError && (
           <p

@@ -12,7 +12,13 @@ const initialState: FormState<SignInError> = { error: null };
 export function EnterPasswordForm({ participantId }: { participantId: string }) {
   const t = useTranslations("enterPassword");
   const tCommon = useTranslations("common");
-  const [state, formAction] = useActionState(signIn, initialState);
+  const [state, formAction] = useActionState(
+    async (prev: typeof initialState, formData: FormData) => ({
+      ...(await signIn(prev, formData)),
+      attempt: (prev.attempt ?? 0) + 1,
+    }),
+    initialState,
+  );
 
   const error =
     state.error === "wrongPassword"
@@ -33,6 +39,7 @@ export function EnterPasswordForm({ participantId }: { participantId: string }) 
           label={t("passwordLabel")}
           autoComplete="current-password"
           error={error}
+          shakeKey={state.attempt}
           autoFocus
         />
 

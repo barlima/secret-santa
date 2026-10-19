@@ -74,7 +74,8 @@ Never read `assignments` with the admin client. Results must stay private via RL
 
 - Design at 390 px first, one column, 16 px side padding (`px-4`), primary button pinned to the bottom.
 - Body text ≥ 16 px, names 20–24 px, tap targets ≥ 44 px.
-- Colours only through tokens: `red`, `red-dark`, `pine`, `pine-light`, `gold`, `gold-light`, `snow`, `sand`, `forest`, `moss`, `mist`, `ink`, `paper`, `line`, `divider`, `error`, `error-soft`; `pine-soft`, `wait`, `wait-soft`, `amber`, `amber-soft`; dark-screen decoration: `bulb-red`, `wire`, `socket`, `bulb-off`, `socket-off`, `chip-dashed`, `mist-dim`. Gold only on dark surfaces or decoration.
-- Shared UI in `src/components/`: `icons.tsx`, `PasswordField`, `SubmitButton`, `SignOutButton`, `LanguageSwitcher`.
-- Respect `prefers-reduced-motion` for every animation.
+- Colours only through tokens: `red`, `red-dark`, `pine`, `pine-light`, `gold`, `gold-light`, `snow`, `sand`, `sand-dark`, `forest`, `moss`, `mist`, `ink`, `paper`, `line`, `divider`, `error`, `error-soft`; `pine-soft`, `wait`, `wait-soft`, `amber`, `amber-soft`; dark-screen decoration: `bulb-red`, `wire`, `socket`, `bulb-off`, `socket-off`, `chip-dashed`, `mist-dim`. Gold only on dark surfaces or decoration.
+- Shared UI in `src/components/`: `icons.tsx`, `PasswordField` (`shakeKey` replays the error shake), `SubmitButton`, `SignOutButton`, `LanguageSwitcher`, `Snowfall`.
+- Motion is CSS-only, all in `src/app/motion.css` (snowfall, card stagger `card-in` with `--i`, `check-pop`, `shake`, bulb twinkle, `chip-glow`, gift wiggle → `gift-opening` with lid lift → `reveal-name` + confetti). Every animation has a reduced-motion variant in that file's last block — add one for anything new.
+- `<Snowfall tone="light" | "dark" />` on participant screens (not admin). States: `loading.tsx` (root, `/me`, `/admin`), `error.tsx`, `global-error.tsx` (no providers: hardcoded PL/EN/DE), `not-found.tsx`.
 - All user-facing copy goes through translations (PL / EN / DE) from stage 2 on.

@@ -160,12 +160,18 @@
     }
   },
   "loading": {
-    "names": "Wczytuję imiona…"
+    "names": "Wczytuję imiona…",
+    "generic": "Wczytuję…"
   },
   "error": {
     "title": "Coś poszło nie tak",
     "body": "Nie udało się połączyć z serwerem. Sprawdź internet i spróbuj ponownie.",
     "retry": "Spróbuj ponownie",
     "backToStart": "Wróć na start"
+  },
+  "notFound": {
+    "title": "Nic tu nie ma",
+    "body": "Ten link nigdzie nie prowadzi. Może to imię zostało usunięte z listy.",
+    "back": "Wróć na start"
   }
 }

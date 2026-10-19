@@ -11,10 +11,12 @@ type Props = {
   hint?: string;
   error?: string | null;
   autoFocus?: boolean;
+  /** Changes on every failed attempt; each change shakes the field once. */
+  shakeKey?: number;
 };
 
 /** Password input with a show/hide toggle and an inline error (SetPassword / EnterPassword mockups). */
-export function PasswordField({ name, label, autoComplete, hint, error, autoFocus }: Props) {
+export function PasswordField({ name, label, autoComplete, hint, error, autoFocus, shakeKey }: Props) {
   const t = useTranslations("common");
   const [visible, setVisible] = useState(false);
   const id = useId();
@@ -27,7 +29,8 @@ export function PasswordField({ name, label, autoComplete, hint, error, autoFocu
       <label htmlFor={id} className="text-base font-semibold">
         {label}
       </label>
-      <div className="relative">
+      {/* Re-keyed per failed attempt so the shake animation replays. */}
+      <div key={error ? shakeKey : undefined} className={`relative ${error ? "shake" : ""}`}>
         <input
           id={id}
           name={name}

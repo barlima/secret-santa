@@ -13,7 +13,8 @@ import { createClient } from "@/lib/supabase/server";
 export type SetPasswordError = "tooShort" | "tooLong" | "mismatch" | "alreadyClaimed" | "generic";
 export type SignInError = "wrongPassword" | "tooManyAttempts" | "generic";
 
-export type FormState<E extends string> = { error: E | null };
+/** `attempt` is counted on the client (see the forms) to replay the error shake. */
+export type FormState<E extends string> = { error: E | null; attempt?: number };
 
 function text(formData: FormData, name: string): string {
   const value = formData.get(name);

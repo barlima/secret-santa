@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { Snowfall } from "@/components/Snowfall";
 import { ChevronLeftIcon } from "@/components/icons";
 import { getParticipant, initials } from "@/lib/participants";
 import { EnterPasswordForm } from "./EnterPasswordForm";
@@ -33,7 +34,9 @@ export default async function PasswordPage({ params }: Props) {
   ]);
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col">
+    <>
+    <Snowfall tone="light" />
+    <main className="relative mx-auto flex min-h-dvh w-full max-w-md flex-col">
       <div className="flex flex-col gap-6 px-4 pt-4">
         <header className="flex items-center justify-between gap-2">
           <Link
@@ -75,5 +78,6 @@ export default async function PasswordPage({ params }: Props) {
         <EnterPasswordForm participantId={participant.id} />
       )}
     </main>
+    </>
   );
 }
