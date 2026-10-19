@@ -107,7 +107,8 @@
       "removeConfirm": "Usuń",
       "resetPasswordTitle": "Zresetować hasło: {name}?",
       "resetPasswordBody": "Przy następnym wejściu ta osoba ustawi nowe hasło. Wynik losowania się nie zmieni.",
-      "resetPasswordConfirm": "Zresetuj hasło"
+      "resetPasswordConfirm": "Zresetuj hasło",
+      "nameTooLong": "Imię i nazwisko może mieć najwyżej {max} znaków."
     },
     "spouses": {
       "title": "Małżonkowie",
@@ -156,8 +157,7 @@
       "body": "Dodaj wszystkich uczestników, połącz małżonków w pary, a potem wyślij link rodzinie.",
       "warning": "Dodaj całą grupę, zanim wyślesz link: losowanie rusza, gdy wszyscy z listy mają hasło.",
       "cta": "Dodaj pierwszą osobę"
-    },
-    "comingSoon": "Panel admina jest w drodze."
+    }
   },
   "loading": {
     "names": "Wczytuję imiona…"

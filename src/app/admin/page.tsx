@@ -1,35 +1,47 @@
-import { getTranslations } from "next-intl/server";
-import Link from "next/link";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { SignOutButton } from "@/components/SignOutButton";
-import { ChevronLeftIcon } from "@/components/icons";
+import { getLocale, getTranslations } from "next-intl/server";
+import { getAdminData } from "@/lib/admin";
+import { getCurrentParticipant } from "@/lib/participants";
+import { AddPersonForm } from "./_components/AddPersonForm";
+import { ParticipantRow } from "./_components/ParticipantRow";
 
-/** Stage 3 placeholder for the admin panel (stage 5). Only reachable by the admin. */
-export default async function AdminPage() {
-  const t = await getTranslations("admin");
+/** Admin: participants (AdminParticipants.dc.html, Empty.dc.html). */
+export default async function AdminPeoplePage() {
+  const [t, data, session] = await Promise.all([
+    getTranslations("admin"),
+    getAdminData(await getLocale()),
+    getCurrentParticipant(),
+  ]);
+  const selfId = session?.participant?.id;
+  const { participants, draw } = data;
+  const joined = participants.filter((p) => p.has_password).length;
+  const onlyAdmin = participants.every((p) => p.is_admin);
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col gap-4 px-4 pt-3">
-      <header className="flex items-center justify-between gap-2">
-        <Link
-          href="/me"
-          className="inline-flex min-h-11 items-center gap-1.5 rounded-lg text-base font-semibold text-pine hover:text-forest focus-visible:outline-2 focus-visible:outline-pine"
-        >
-          <ChevronLeftIcon size={20} />
-          {t("myResult")}
-        </Link>
-        <div className="flex items-center gap-2">
-          <span className="rounded-full bg-forest px-2.5 py-1.5 text-xs font-bold tracking-[0.08em] text-snow uppercase">
-            {t("badge")}
-          </span>
-          <LanguageSwitcher />
-        </div>
-      </header>
+    <>
       <h1 className="font-display text-[30px] leading-[1.1] font-extrabold">{t("participants.title")}</h1>
-      <p className="text-base text-moss">{t("comingSoon")}</p>
-      <footer className="mt-auto flex justify-center pb-7">
-        <SignOutButton tone="light" />
-      </footer>
-    </main>
+
+      <AddPersonForm />
+
+      {/* The draw starts the moment everyone on the list has a password. */}
+      {draw.status !== "done" && (
+        <p className="rounded-card bg-paper px-4 py-3 text-[15px] leading-snug text-ink">{t("empty.warning")}</p>
+      )}
+
+      {onlyAdmin && (
+        <div className="flex flex-col items-center gap-2 py-4 text-center">
+          <h2 className="font-display text-2xl font-extrabold">{t("empty.title")}</h2>
+          <p className="max-w-[300px] text-base leading-normal text-moss">{t("empty.body")}</p>
+        </div>
+      )}
+
+      <p className="mt-1 text-sm font-semibold text-moss">
+        {t("participants.summary", { total: participants.length, joined })}
+      </p>
+      <ul className="overflow-hidden rounded-card bg-white shadow-card">
+        {participants.map((p) => (
+          <ParticipantRow key={p.id} person={p} isSelf={p.id === selfId} />
+        ))}
+      </ul>
+    </>
   );
 }

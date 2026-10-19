@@ -19,6 +19,11 @@
   --color-paper: #f2ede3; /* hint boxes on light screens */
   --color-error-soft: #fbe3e4; /* error banner background */
   --color-ink: #2e4238; /* long-form body text on paper */
+  --color-pine-soft: #e3f0e8; /* "Joined" pill */
+  --color-wait-soft: #f3ecdf; /* "Not yet" pill */
+  --color-wait: #6b5530;
+  --color-amber-soft: #f7ebcd; /* draw waiting icon tile */
+  --color-amber: #7a5a12;
 
   /* Dark screens (waiting room, reveal): string of lights and chips. */
   --color-bulb-red: #e5484d;
