@@ -1,0 +1,268 @@
+/*
+ * All motion in the app, CSS only. Every animation has a calmer variant under
+ * prefers-reduced-motion (a fade or nothing), see the block at the end.
+ */
+
+/* ── Snowfall (every participant screen) ─────────────────────────────── */
+
+@keyframes snow-fall {
+  from {
+    transform: translate3d(0, -10vh, 0);
+  }
+  to {
+    transform: translate3d(var(--drift, 12px), 110vh, 0);
+  }
+}
+
+.snowflake {
+  position: absolute;
+  top: 0;
+  border-radius: 9999px;
+  animation: snow-fall var(--duration, 18s) linear var(--delay, 0s) infinite;
+  will-change: transform;
+}
+
+/* ── Name cards slide in with a stagger (picker) ─────────────────────── */
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.card-in {
+  animation: card-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+/* ── Check-mark pop (joined markers) ─────────────────────────────────── */
+
+@keyframes check-pop {
+  0% {
+    transform: scale(0);
+  }
+  70% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.check-pop {
+  animation: check-pop 0.4s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms + 250ms);
+}
+
+/* ── Wrong password: the field shakes ────────────────────────────────── */
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: none;
+  }
+  20% {
+    transform: translateX(-8px);
+  }
+  40% {
+    transform: translateX(7px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(3px);
+  }
+}
+
+.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+/* ── Waiting room: lit bulbs twinkle, joined chips glow ──────────────── */
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.bulb-glow {
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+
+@keyframes chip-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgb(63 160 106 / 0.35);
+  }
+  50% {
+    box-shadow: 0 0 18px rgb(63 160 106 / 0.6);
+  }
+}
+
+.chip-glow {
+  animation: chip-glow 3s ease-in-out infinite;
+}
+
+/* ── Reveal ──────────────────────────────────────────────────────────── */
+
+/* Closed gift wiggles now and then to invite a tap. */
+@keyframes gift-wiggle {
+  0%,
+  86%,
+  100% {
+    transform: rotate(0);
+  }
+  89% {
+    transform: rotate(-4deg);
+  }
+  92% {
+    transform: rotate(4deg);
+  }
+  95% {
+    transform: rotate(-2deg);
+  }
+}
+
+.gift-closed {
+  animation: gift-wiggle 3.5s ease-in-out infinite;
+}
+
+/* Tapped: the box shakes, then the lid lifts off. */
+@keyframes gift-shake {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  15% {
+    transform: rotate(-6deg) scale(1.02);
+  }
+  30% {
+    transform: rotate(6deg) scale(1.04);
+  }
+  45% {
+    transform: rotate(-5deg) scale(1.04);
+  }
+  60% {
+    transform: rotate(4deg) scale(1.02);
+  }
+  75% {
+    transform: rotate(-2deg);
+  }
+}
+
+@keyframes lid-lift {
+  from {
+    transform: none;
+  }
+  to {
+    transform: translate(-18px, -58px) rotate(-16deg);
+  }
+}
+
+.gift-opening {
+  animation: gift-shake 0.6s ease-in-out both;
+}
+
+.gift-opening .gift-lid {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lid-lift 0.35s cubic-bezier(0.3, 1.2, 0.5, 1) 0.55s both;
+}
+
+/* The name rises out of the box. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.reveal-name {
+  animation: rise-in 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.reveal-rest {
+  animation: rise-in 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.25s both;
+}
+
+/* Gold confetti burst, one-off. Each piece gets --x, --y, --r and --d. */
+@keyframes confetti {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) rotate(var(--r));
+  }
+}
+
+.confetti-piece {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 7px;
+  height: 11px;
+  border-radius: 2px;
+  animation: confetti 1.3s cubic-bezier(0.15, 0.6, 0.3, 1) var(--d, 0s) both;
+}
+
+/* Generic fade, also the reduced-motion fallback. */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.fade-in {
+  animation: fade-in 0.4s ease-out both;
+}
+
+/* ── Reduced motion: keep fades, drop movement ───────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .snowflake,
+  .bulb-glow,
+  .chip-glow,
+  .gift-closed,
+  .gift-opening,
+  .gift-opening .gift-lid,
+  .shake {
+    animation: none;
+  }
+
+  .snowflake {
+    /* Static scattered dots instead of falling snow. */
+    transform: translate3d(0, var(--rest-y, 50vh), 0);
+  }
+
+  .gift-opening .gift-lid {
+    transform: translate(-18px, -58px) rotate(-16deg);
+  }
+
+  .card-in,
+  .check-pop,
+  .reveal-name,
+  .reveal-rest {
+    animation: fade-in 0.3s ease-out both;
+  }
+
+  .confetti-piece {
+    display: none;
+  }
+}

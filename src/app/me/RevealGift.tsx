@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useCallback, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
 
 type Props = {
   receiverName: string;
@@ -38,16 +38,37 @@ export function RevealGift({ receiverName, storageKey }: Props) {
     () => false,
   );
 
-  const open = useCallback(() => {
-    try {
-      window.localStorage.setItem(storageKey, "1");
-    } catch {
-      // Private mode: the gift just opens for this visit.
-    }
-    window.dispatchEvent(new Event(OPENED_EVENT));
-  }, [storageKey]);
+  // idle → opening (box shakes, lid lifts) → burst (name rises, confetti).
+  const [phase, setPhase] = useState<"idle" | "opening" | "burst">("idle");
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(timer.current), []);
 
-  if (!opened) {
+  // The gift button disappears on open: move focus to the name so screen
+  // readers announce it and keyboard users don't land on <body>.
+  const nameRef = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    if (phase === "burst") nameRef.current?.focus();
+  }, [phase]);
+
+  const open = () => {
+    if (phase !== "idle") return;
+    setPhase("opening");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    timer.current = setTimeout(
+      () => {
+        try {
+          window.localStorage.setItem(storageKey, "1");
+        } catch {
+          // Private mode: the gift just opens for this visit.
+        }
+        setPhase("burst");
+        window.dispatchEvent(new Event(OPENED_EVENT));
+      },
+      reduce ? 0 : 950,
+    );
+  };
+
+  if (!opened && phase !== "burst") {
     return (
       <div className="flex flex-col items-center gap-7 pt-12 text-center">
         <div>
@@ -58,7 +79,8 @@ export function RevealGift({ receiverName, storageKey }: Props) {
           type="button"
           onClick={open}
           aria-label={t("openGift")}
-          className="gift-closed cursor-pointer rounded-3xl p-2 focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-gold"
+          aria-busy={phase === "opening" || undefined}
+          className={`${phase === "opening" ? "gift-opening" : "gift-closed"} cursor-pointer rounded-3xl p-2 focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-gold`}
         >
           <ClosedGift />
         </button>
@@ -68,13 +90,16 @@ export function RevealGift({ receiverName, storageKey }: Props) {
   }
 
   return (
-    <div className="gift-opened flex flex-col items-center gap-2 pt-10 text-center">
-      <p className="text-[17px] font-semibold text-mist">{t("buyingFor")}</p>
-      <h1 className="mt-1 font-display text-[42px] leading-[1.05] font-extrabold break-words text-gold">
+    <div className="relative flex flex-col items-center gap-2 pt-10 text-center">
+      {phase === "burst" && <Confetti />}
+      <p className="reveal-name text-[17px] font-semibold text-mist">{t("buyingFor")}</p>
+      <h1 ref={nameRef} tabIndex={-1} className="reveal-name mt-1 outline-none font-display text-[42px] leading-[1.05] font-extrabold break-words text-gold">
         {receiverName}
       </h1>
-      <OpenedGift />
-      <div className="mt-3 flex items-start gap-3 rounded-card bg-white/7 px-4 py-3.5 text-left">
+      <div className="reveal-rest flex flex-col items-center">
+        <OpenedGift />
+      </div>
+      <div className="reveal-rest mt-3 flex items-start gap-3 rounded-card bg-white/7 px-4 py-3.5 text-left">
         <svg
           width="22"
           height="22"
@@ -124,7 +149,9 @@ function ClosedGift() {
   return (
     <svg width="260" height="238" viewBox="0 0 240 220" aria-hidden="true" focusable="false">
       <GiftBox />
-      <Lid />
+      <g className="gift-lid">
+        <Lid />
+      </g>
     </svg>
   );
 }
@@ -160,5 +187,34 @@ function Sparkle({ x, y, size, fill }: { x: number; y: number; size: number; fil
       d={`M${x} ${y - s} L${x + k} ${y - k} L${x + s} ${y} L${x + k} ${y + k} L${x} ${y + s} L${x - k} ${y + k} L${x - s} ${y} L${x - k} ${y - k} Z`}
       fill={fill}
     />
+  );
+}
+
+const CONFETTI_COLORS = ["var(--color-gold)", "var(--color-gold-light)", "var(--color-bulb-red)", "var(--color-pine-light)", "var(--color-snow)"];
+
+/** One-off burst of 24 pieces fanning out from behind the name. */
+function Confetti() {
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-visible">
+      {Array.from({ length: 24 }, (_, i) => {
+        const angle = (i / 24) * Math.PI * 2;
+        const distance = 110 + (i % 4) * 28;
+        return (
+          <span
+            key={i}
+            className="confetti-piece"
+            style={
+              {
+                background: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+                "--x": `${Math.round(Math.cos(angle) * distance)}px`,
+                "--y": `${Math.round(Math.sin(angle) * distance * 0.8 + 60)}px`,
+                "--r": `${(i % 2 ? 1 : -1) * (180 + i * 23)}deg`,
+                "--d": `${(i % 5) * 0.03}s`,
+              } as CSSProperties
+            }
+          />
+        );
+      })}
+    </div>
   );
 }

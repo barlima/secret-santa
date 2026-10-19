@@ -1,14 +1,19 @@
+import type { Viewport } from "next";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SignOutButton } from "@/components/SignOutButton";
+import { Snowfall } from "@/components/Snowfall";
 import { GiftIcon } from "@/components/icons";
 import { getMyDrawState } from "@/lib/draw";
 import { firstName, getCurrentParticipant } from "@/lib/participants";
 import { LiveRefresh } from "./LiveRefresh";
 import { RevealGift } from "./RevealGift";
 import { WaitingRoom } from "./WaitingRoom";
+
+/** Dark screen: match the browser chrome on phones. */
+export const viewport: Viewport = { themeColor: "#0F2A1D" };
 
 /**
  * Signed-in participant home. Shows the waiting room until the draw is done,
@@ -30,7 +35,8 @@ export default async function MePage() {
 
   return (
     <div className="min-h-dvh bg-forest text-snow">
-      <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col gap-7 px-4 pt-4">
+      <Snowfall tone="dark" />
+      <main className="relative mx-auto flex min-h-dvh w-full max-w-md flex-col gap-7 px-4 pt-4">
         <header className="flex items-center justify-between gap-2">
           <div className="flex min-w-0 items-center gap-2">
             <GiftIcon size={26} className="shrink-0 text-gold" />

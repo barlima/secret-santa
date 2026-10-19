@@ -160,12 +160,18 @@
     }
   },
   "loading": {
-    "names": "Namen werden geladen…"
+    "names": "Namen werden geladen…",
+    "generic": "Wird geladen…"
   },
   "error": {
     "title": "Etwas ist schiefgelaufen",
     "body": "Der Server ist nicht erreichbar. Prüfe deine Verbindung und versuch es noch einmal.",
     "retry": "Noch einmal versuchen",
     "backToStart": "Zurück zum Start"
+  },
+  "notFound": {
+    "title": "Hier ist nichts",
+    "body": "Dieser Link führt nirgendwohin. Vielleicht wurde der Name von der Liste entfernt.",
+    "back": "Zurück zum Start"
   }
 }

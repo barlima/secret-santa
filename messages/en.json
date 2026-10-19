@@ -160,12 +160,18 @@
     }
   },
   "loading": {
-    "names": "Loading names…"
+    "names": "Loading names…",
+    "generic": "Loading…"
   },
   "error": {
     "title": "Something went wrong",
     "body": "We couldn't reach the server. Check your connection and try again.",
     "retry": "Try again",
     "backToStart": "Back to start"
+  },
+  "notFound": {
+    "title": "Nothing here",
+    "body": "This link doesn't lead anywhere. Maybe the name was removed from the list.",
+    "back": "Back to start"
   }
 }

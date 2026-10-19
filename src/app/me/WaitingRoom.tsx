@@ -54,7 +54,7 @@ export async function WaitingRoom({ members, kind }: Props) {
         {joined.map((m) => (
           <li
             key={m.id}
-            className="flex items-center gap-1.5 rounded-full border-[1.5px] border-pine-light bg-pine px-3.5 py-[9px] text-base font-semibold shadow-[0_0_14px_rgb(63_160_106/0.45)]"
+            className="chip-glow flex items-center gap-1.5 rounded-full border-[1.5px] border-pine-light bg-pine px-3.5 py-[9px] text-base font-semibold"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <path

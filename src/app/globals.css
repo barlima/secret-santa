@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./motion.css";
 
 /* Design tokens from claude/designs (see design-notes.md). */
 @theme {
@@ -10,6 +11,7 @@
   --color-gold-light: #f2cf7e;
   --color-snow: #fbf8f3;
   --color-sand: #efe8dd; /* segmented controls, skeletons */
+  --color-sand-dark: #e6dfd3; /* skeleton headings */
   --color-forest: #0f2a1d;
   --color-moss: #4a5d52; /* secondary text on light */
   --color-mist: #c9d6cf; /* secondary text on dark */
@@ -49,78 +51,4 @@ body {
   background: var(--color-snow);
   color: var(--color-forest);
   font-family: var(--font-sans);
-}
-
-/* Waiting room: lit bulbs twinkle softly. Static for reduced motion. */
-@keyframes twinkle {
-  0%,
-  100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-.bulb-glow {
-  animation: twinkle 2.4s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .bulb-glow {
-    animation: none;
-  }
-}
-
-/* Reveal: the closed gift wiggles now and then; the result fades in.
-   Fuller motion (lid lift, confetti) arrives with the animation stage. */
-@keyframes gift-wiggle {
-  0%,
-  86%,
-  100% {
-    transform: rotate(0);
-  }
-  89% {
-    transform: rotate(-4deg);
-  }
-  92% {
-    transform: rotate(4deg);
-  }
-  95% {
-    transform: rotate(-2deg);
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-}
-
-@keyframes rise-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.gift-closed {
-  animation: gift-wiggle 3.5s ease-in-out infinite;
-}
-
-.gift-opened {
-  animation: rise-in 0.6s ease-out both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .gift-closed {
-    animation: none;
-  }
-  .gift-opened {
-    animation: fade-in 0.4s ease-out both;
-  }
 }

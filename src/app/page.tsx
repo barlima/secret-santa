@@ -1,6 +1,8 @@
+import type { CSSProperties } from "react";
 import { getLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { Snowfall } from "@/components/Snowfall";
 import { ChevronRightIcon, GiftIcon, JoinedCheckIcon } from "@/components/icons";
 import { EVENT_YEAR } from "@/lib/event";
 import { listParticipants } from "@/lib/participants";
@@ -16,7 +18,9 @@ export default async function PickNamePage() {
   const joined = participants.filter((p) => p.has_password).length;
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col gap-[22px] px-4 pt-4 pb-6">
+    <>
+    <Snowfall tone="light" />
+    <main className="relative mx-auto flex min-h-dvh w-full max-w-md flex-col gap-[22px] px-4 pt-4 pb-6">
       <header className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <GiftIcon size={26} className="text-red" />
@@ -39,8 +43,8 @@ export default async function PickNamePage() {
         <>
           <nav aria-label={t("listLabel")}>
             <ul className="flex flex-col gap-2">
-              {participants.map((p) => (
-                <li key={p.id}>
+              {participants.map((p, i) => (
+                <li key={p.id} className="card-in" style={{ "--i": i } as CSSProperties}>
                   <Link
                     href={`/p/${p.id}`}
                     className="flex min-h-15 items-center justify-between gap-3 rounded-card bg-white py-2 pr-4 pl-[18px] text-[21px] font-semibold text-forest shadow-card transition-transform hover:bg-white/80 focus-visible:outline-3 focus-visible:outline-pine active:scale-[0.99] motion-reduce:transition-none"
@@ -49,7 +53,7 @@ export default async function PickNamePage() {
                     {p.has_password ? (
                       <span className="flex shrink-0 items-center gap-1.5 text-[13px] font-bold text-pine">
                         {t("joined")}
-                        <JoinedCheckIcon className="text-pine" />
+                        <JoinedCheckIcon className="check-pop text-pine" style={{ "--i": i } as CSSProperties} />
                       </span>
                     ) : (
                       <ChevronRightIcon size={20} className="shrink-0 text-moss/70" />
@@ -65,5 +69,6 @@ export default async function PickNamePage() {
         </>
       )}
     </main>
+    </>
   );
 }
