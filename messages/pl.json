@@ -1,0 +1,177 @@
+{
+  "common": {
+    "appName": "Tajny Mikołaj",
+    "eventTitle": "Rodzinne Święta {year}",
+    "logOut": "Wyloguj się",
+    "notYou": "To nie Ty?",
+    "showPassword": "Pokaż hasło",
+    "hidePassword": "Ukryj hasło",
+    "cancel": "Anuluj",
+    "liveUpdates": "Ta strona odświeża się sama."
+  },
+  "language": {
+    "label": "Język",
+    "names": {
+      "pl": "Polski",
+      "en": "English",
+      "de": "Deutsch"
+    }
+  },
+  "metadata": {
+    "description": "Rodzinne losowanie Tajnego Mikołaja"
+  },
+  "home": {
+    "title": "Już wkrótce",
+    "intro": "Szkielet aplikacji działa. Logowanie pojawi się w kolejnym etapie.",
+    "paletteHeading": "Paleta",
+    "colors": {
+      "red": "Świąteczna czerwień",
+      "pine": "Sosnowa zieleń",
+      "gold": "Ciepłe złoto",
+      "snow": "Śnieżna biel",
+      "forest": "Głęboki las"
+    },
+    "dbConnected": "Połączenie z Supabase działa.",
+    "dbParticipants": "W bazie {count, plural, one {jest # uczestnik} few {są # uczestnicy} many {jest # uczestników} other {jest # uczestnika}}.",
+    "dbUnreachable": "Brak połączenia z Supabase.",
+    "dbCheckEnv": "Sprawdź zmienne środowiskowe w Vercelu.",
+    "primaryButton": "Główny przycisk"
+  },
+  "picker": {
+    "title": "Kim jesteś?",
+    "intro": "Dotknij swojego imienia, żeby się zalogować.",
+    "listLabel": "Uczestnicy",
+    "joined": "Jest",
+    "progress": "Już {joined, plural, few {są} other {jest}} {joined} z {total} osób"
+  },
+  "setPassword": {
+    "eyebrow": "Pierwszy raz tutaj",
+    "intro": "Wybierz hasło. Dzięki niemu wrócisz tu i zobaczysz, komu kupujesz prezent.",
+    "passwordLabel": "Hasło",
+    "passwordHint": "Co najmniej {min} znaków.",
+    "confirmLabel": "Powtórz hasło",
+    "tooShort": "Hasło musi mieć co najmniej {min} znaków.",
+    "mismatch": "Hasła się różnią.",
+    "alreadyClaimed": "Ktoś przed chwilą ustawił hasło dla tego imienia. Jeśli to nie Ty, napisz do admina.",
+    "submit": "Zapisz hasło",
+    "drawNote": "Losowanie ruszy samo, gdy wszyscy dołączą."
+  },
+  "enterPassword": {
+    "eyebrow": "Witaj ponownie",
+    "passwordLabel": "Hasło",
+    "wrongPassword": "To nie jest właściwe hasło. Spróbuj jeszcze raz.",
+    "forgotTitle": "Nie pamiętasz?",
+    "forgotBody": "Poproś admina o zresetowanie hasła. Przy następnej wizycie ustawisz nowe.",
+    "submit": "Zaloguj się"
+  },
+  "waiting": {
+    "greeting": "Cześć, {name}",
+    "progressCount": "{joined} z {total}",
+    "progressLabel": "osób już {joined, plural, few {są} other {jest}}",
+    "waitingFor": "Czekamy, aż dołączą: {names}.",
+    "lightsLabel": "Sznur lampek, świeci się {lit} z {total}",
+    "everyoneLabel": "Wszyscy w losowaniu",
+    "pendingSuffix": "czekamy",
+    "drawFailed": "Wszyscy są, ale losowanie się nie udało. Admin już się tym zajmuje.",
+    "joinedAfterDraw": "Losowanie już się odbyło. Admin zdecyduje, czy przeprowadzić je jeszcze raz razem z Tobą."
+  },
+  "reveal": {
+    "eyebrow": "Wszyscy są!",
+    "title": "Twoje losowanie jest gotowe",
+    "openGift": "Otwórz prezent",
+    "tapHint": "Dotknij prezentu, żeby go otworzyć",
+    "buyingFor": "Kupujesz prezent dla",
+    "secretTitle": "Ani słowa!",
+    "secretBody": "Tylko Ty widzisz to imię. Będzie tu przy każdym logowaniu."
+  },
+  "admin": {
+    "badge": "Admin",
+    "myResult": "Mój wynik",
+    "sectionsLabel": "Sekcje panelu admina",
+    "tabs": {
+      "people": "Osoby",
+      "spouses": "Pary",
+      "draw": "Losowanie"
+    },
+    "participants": {
+      "title": "Uczestnicy",
+      "addLabel": "Dodaj osobę",
+      "namePlaceholder": "Imię i nazwisko",
+      "add": "Dodaj",
+      "summary": "{total, plural, one {# osoba} few {# osoby} many {# osób} other {# osoby}} · dołączyło: {joined}",
+      "joined": "Jest",
+      "notYet": "Jeszcze nie",
+      "you": "Ty",
+      "rename": "Zmień imię: {name}",
+      "renameSave": "Zapisz",
+      "resetPassword": "Zresetuj hasło: {name}",
+      "resetPasswordUnavailable": "Zresetuj hasło: {name} (hasło jeszcze nieustawione)",
+      "remove": "Usuń: {name}",
+      "duplicateName": "Ta osoba jest już na liście.",
+      "emptyName": "Wpisz imię i nazwisko.",
+      "removeTitle": "Usunąć: {name}?",
+      "removeBody": "Ta osoba zniknie z listy i z pary małżeńskiej, jeśli w niej jest.",
+      "removeConfirm": "Usuń",
+      "resetPasswordTitle": "Zresetować hasło: {name}?",
+      "resetPasswordBody": "Przy następnym wejściu ta osoba ustawi nowe hasło. Wynik losowania się nie zmieni.",
+      "resetPasswordConfirm": "Zresetuj hasło"
+    },
+    "spouses": {
+      "title": "Małżonkowie",
+      "intro": "Małżonkowie nigdy nie wylosują siebie nawzajem. Każdy może mieć jednego małżonka.",
+      "personLabel": "Osoba",
+      "spouseLabel": "Małżonek / małżonka",
+      "pair": "Połącz w parę",
+      "pairsCount": "{count, plural, =0 {Brak par} one {# para} few {# pary} many {# par} other {# pary}}",
+      "unpair": "Rozłącz",
+      "notPaired": "Bez pary",
+      "alreadyPaired": "Jedna z tych osób jest już w parze. Najpierw ją rozłącz.",
+      "samePerson": "Wybierz dwie różne osoby."
+    },
+    "draw": {
+      "title": "Losowanie",
+      "waitingLabel": "Czekamy",
+      "joinedCount": "Już {joined, plural, few {są} other {jest}} {joined} z {total} osób",
+      "progressLabel": "Zapisy",
+      "stillMissing": "Brakuje jeszcze: {names}. Losowanie ruszy samo, gdy ostatnia osoba ustawi hasło.",
+      "doneLabel": "Gotowe",
+      "doneTitle": "Każdy ma swoją parę",
+      "doneBody": "Wylosowano {date, date, short} o {date, time, short} · {count, plural, one {# osoba} few {# osoby} many {# osób} other {# osoby}}. Wyniki są prywatne: każdy widzi tylko swój, Ty też.",
+      "failedLabel": "Błąd",
+      "failedTitle": "Losowanie się nie udało",
+      "failedReasons": {
+        "too_few_people": "Za mało osób do losowania. Dodaj jeszcze co najmniej jedną.",
+        "no_valid_assignment": "Przy obecnych parach nie da się nikogo przydzielić. Dodaj więcej osób albo usuń jedną parę i losuj jeszcze raz.",
+        "unknown": "Coś poszło nie tak. Spróbuj losować jeszcze raz."
+      },
+      "runAgain": "Losuj jeszcze raz",
+      "staleTitle": "Skład zmienił się po losowaniu",
+      "staleBody": "Obecne wyniki nie uwzględniają ostatnich zmian. Przeprowadź nowe losowanie, żeby objęło wszystkich.",
+      "staleDialogTitle": "Skład się zmienił",
+      "staleDialogBody": "Czy chcesz przeprowadzić nowe losowanie?",
+      "staleDialogConfirm": "Tak, losuj od nowa",
+      "staleDialogDismiss": "Nie teraz",
+      "resetHeading": "Zresetuj losowanie",
+      "resetBody": "Usuwa wszystkie wyniki. Nowe losowanie ruszy, gdy wszyscy będą zapisani. Po dodaniu lub usunięciu osoby po losowaniu też o to zapytamy.",
+      "resetButton": "Zresetuj losowanie…",
+      "resetDialogTitle": "Zresetować losowanie?",
+      "resetDialogBody": "Wszystkie obecne wyniki zostaną usunięte. Osoby, które już otworzyły prezent, dostaną nowe losowanie.",
+      "resetDialogConfirm": "Zresetuj losowanie"
+    },
+    "empty": {
+      "title": "Nikogo tu jeszcze nie ma",
+      "body": "Dodaj wszystkich uczestników, połącz małżonków w pary, a potem wyślij link rodzinie.",
+      "warning": "Dodaj całą grupę, zanim wyślesz link: losowanie rusza, gdy wszyscy z listy mają hasło.",
+      "cta": "Dodaj pierwszą osobę"
+    }
+  },
+  "loading": {
+    "names": "Wczytuję imiona…"
+  },
+  "error": {
+    "title": "Coś poszło nie tak",
+    "body": "Nie udało się połączyć z serwerem. Sprawdź internet i spróbuj ponownie.",
+    "retry": "Spróbuj ponownie",
+    "backToStart": "Wróć na start"
+  }
+}

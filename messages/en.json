@@ -1,0 +1,177 @@
+{
+  "common": {
+    "appName": "Secret Santa",
+    "eventTitle": "Family Christmas {year}",
+    "logOut": "Log out",
+    "notYou": "Not you?",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "cancel": "Cancel",
+    "liveUpdates": "This page updates by itself."
+  },
+  "language": {
+    "label": "Language",
+    "names": {
+      "pl": "Polski",
+      "en": "English",
+      "de": "Deutsch"
+    }
+  },
+  "metadata": {
+    "description": "Our family Secret Santa draw"
+  },
+  "home": {
+    "title": "Coming soon",
+    "intro": "The app skeleton is up. Sign-in arrives in a later stage.",
+    "paletteHeading": "Palette",
+    "colors": {
+      "red": "Christmas red",
+      "pine": "Pine green",
+      "gold": "Warm gold",
+      "snow": "Snow white",
+      "forest": "Deep forest"
+    },
+    "dbConnected": "Supabase connected.",
+    "dbParticipants": "{count, plural, one {# participant} other {# participants}} in the database.",
+    "dbUnreachable": "Supabase not reachable.",
+    "dbCheckEnv": "Check the environment variables in Vercel.",
+    "primaryButton": "Primary button"
+  },
+  "picker": {
+    "title": "Who are you?",
+    "intro": "Tap your name to sign in.",
+    "listLabel": "Participants",
+    "joined": "Joined",
+    "progress": "{joined} of {total} have joined"
+  },
+  "setPassword": {
+    "eyebrow": "First time here",
+    "intro": "Choose a password. You'll use it to come back and see who you're buying a gift for.",
+    "passwordLabel": "Password",
+    "passwordHint": "At least {min} characters.",
+    "confirmLabel": "Confirm password",
+    "tooShort": "The password needs at least {min} characters.",
+    "mismatch": "Passwords don't match.",
+    "alreadyClaimed": "Someone has just set a password for this name. If it wasn't you, ask the admin.",
+    "submit": "Save password",
+    "drawNote": "The draw starts by itself once everyone has joined."
+  },
+  "enterPassword": {
+    "eyebrow": "Welcome back",
+    "passwordLabel": "Password",
+    "wrongPassword": "That's not the right password. Try again.",
+    "forgotTitle": "Forgot it?",
+    "forgotBody": "Ask the admin to reset your password. You'll set a new one next time.",
+    "submit": "Log in"
+  },
+  "waiting": {
+    "greeting": "Hi, {name}",
+    "progressCount": "{joined} of {total}",
+    "progressLabel": "{joined, plural, one {has joined} other {have joined}}",
+    "waitingFor": "We are waiting for {names} to sign up.",
+    "lightsLabel": "String of lights, {lit} of {total} lit",
+    "everyoneLabel": "Everyone in the draw",
+    "pendingSuffix": "waiting",
+    "drawFailed": "Everyone's in, but the draw couldn't run. The admin is on it.",
+    "joinedAfterDraw": "The draw has already happened. The admin will decide whether to run it again with you in it."
+  },
+  "reveal": {
+    "eyebrow": "Everyone's in!",
+    "title": "Your match is ready",
+    "openGift": "Open your gift",
+    "tapHint": "Tap the gift to open it",
+    "buyingFor": "You're buying a gift for",
+    "secretTitle": "Keep it secret!",
+    "secretBody": "Only you can see this name. It will be here every time you log in."
+  },
+  "admin": {
+    "badge": "Admin",
+    "myResult": "My result",
+    "sectionsLabel": "Admin sections",
+    "tabs": {
+      "people": "People",
+      "spouses": "Spouses",
+      "draw": "Draw"
+    },
+    "participants": {
+      "title": "Participants",
+      "addLabel": "Add a person",
+      "namePlaceholder": "Full name",
+      "add": "Add",
+      "summary": "{total, plural, one {# person} other {# people}} · {joined} joined",
+      "joined": "Joined",
+      "notYet": "Not yet",
+      "you": "You",
+      "rename": "Rename {name}",
+      "renameSave": "Save",
+      "resetPassword": "Reset password for {name}",
+      "resetPasswordUnavailable": "Reset password for {name} (no password yet)",
+      "remove": "Remove {name}",
+      "duplicateName": "Someone with this name is already on the list.",
+      "emptyName": "Enter a name.",
+      "removeTitle": "Remove {name}?",
+      "removeBody": "They will disappear from the list and from any spouse pair.",
+      "removeConfirm": "Remove",
+      "resetPasswordTitle": "Reset password for {name}?",
+      "resetPasswordBody": "They will choose a new password the next time they open the app. Their draw result stays the same.",
+      "resetPasswordConfirm": "Reset password"
+    },
+    "spouses": {
+      "title": "Spouses",
+      "intro": "Spouses never draw each other. Each person can have one spouse.",
+      "personLabel": "Person",
+      "spouseLabel": "Their spouse",
+      "pair": "Pair as spouses",
+      "pairsCount": "{count, plural, =0 {No pairs} one {# pair} other {# pairs}}",
+      "unpair": "Unpair",
+      "notPaired": "Not paired",
+      "alreadyPaired": "One of these people already has a spouse. Unpair them first.",
+      "samePerson": "Pick two different people."
+    },
+    "draw": {
+      "title": "Draw",
+      "waitingLabel": "Waiting",
+      "joinedCount": "{joined} of {total} have joined",
+      "progressLabel": "Sign-ups",
+      "stillMissing": "Still missing: {names}. The draw runs by itself when the last person sets a password.",
+      "doneLabel": "Done",
+      "doneTitle": "Everyone has a match",
+      "doneBody": "Drawn on {date, date, short} at {date, time, short} · {count, plural, one {# person} other {# people}}. Results are private: only each giver can see their own, including you.",
+      "failedLabel": "Failed",
+      "failedTitle": "The draw couldn't run",
+      "failedReasons": {
+        "too_few_people": "There aren't enough people for a draw. Add at least one more person.",
+        "no_valid_assignment": "No valid assignment exists with the current spouse pairs. Add more people or remove a spouse pair, then run the draw again.",
+        "unknown": "Something unexpected went wrong. Try running the draw again."
+      },
+      "runAgain": "Run the draw again",
+      "staleTitle": "The group changed after the draw",
+      "staleBody": "Current results don't include the latest changes. Run a new draw to include everyone.",
+      "staleDialogTitle": "The group has changed",
+      "staleDialogBody": "Do you want to run a new draw?",
+      "staleDialogConfirm": "Yes, draw again",
+      "staleDialogDismiss": "Not now",
+      "resetHeading": "Reset the draw",
+      "resetBody": "Clears every result. A new draw runs as soon as everyone is signed up. Adding or removing a person after the draw also asks you about this.",
+      "resetButton": "Reset draw…",
+      "resetDialogTitle": "Reset the draw?",
+      "resetDialogBody": "Everyone's current result will be deleted. People who already opened their gift will get a new match.",
+      "resetDialogConfirm": "Reset draw"
+    },
+    "empty": {
+      "title": "No one here yet",
+      "body": "Add everyone taking part, pair the spouses, then share the link with the group.",
+      "warning": "Add the whole group before sharing the link: the draw starts as soon as everyone on the list has a password.",
+      "cta": "Add the first person"
+    }
+  },
+  "loading": {
+    "names": "Loading names…"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "body": "We couldn't reach the server. Check your connection and try again.",
+    "retry": "Try again",
+    "backToStart": "Back to start"
+  }
+}
