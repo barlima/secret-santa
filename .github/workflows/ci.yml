@@ -35,6 +35,9 @@ jobs:
       - name: Check translations (pl / en / de)
         run: npm run check:messages
 
+      - name: Unit tests
+        run: npm test
+
       - name: Generate route types
         run: npx next typegen
 

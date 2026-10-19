@@ -11,5 +11,8 @@ export default defineConfig([
     "build/**",
     "next-env.d.ts",
     "src/lib/database.types.ts",
+    // Playwright isn't installed in CI; e2e has its own tsconfig.
+    "e2e/**",
+    "playwright.config.ts",
   ]),
 ]);
