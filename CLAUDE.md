@@ -70,6 +70,11 @@ Never read `assignments` with the admin client. Results must stay private via RL
 - Vercel build logs aren't reachable from cloud sessions. `vercel.json` pins the Next.js preset (the project was created before the app existed, as "Other").
 - Secrets never go into the repo or chat. `SUPABASE_SECRET_KEY` is read only in `admin.ts`.
 
+## Tests
+
+- `npm test` (CI): Node's built-in runner with type stripping over `tests/unit/*.test.ts`. Tests import source files with a `.ts` extension, so tested modules must have no `@/` imports: keep pure logic in files like `src/lib/names.ts`, `src/app/me/lights.ts`, `src/i18n/config.ts`. `contrast.test.ts` reads the colour tokens from `globals.css` and checks WCAG ratios for every text/background pair in use; add pairs when you add tokens.
+- `npm run test:e2e`: Playwright against a deployed URL (README). Not in CI and not installed by default; `e2e/` and `playwright.config.ts` are excluded from the root tsconfig and ESLint.
+
 ## UI conventions
 
 - Design at 390 px first, one column, 16 px side padding (`px-4`), primary button pinned to the bottom.

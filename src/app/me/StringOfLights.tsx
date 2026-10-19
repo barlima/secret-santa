@@ -1,11 +1,11 @@
+import { bulbLayout } from "./lights";
+
 /**
  * Waiting-room string of lights (Waiting.dc.html): one bulb per person up to
  * MAX_BULBS, lit in proportion to how many have joined. Pure SVG, no state.
  */
 const WIDTH = 358;
 const HEIGHT = 64;
-const MIN_BULBS = 6;
-const MAX_BULBS = 12;
 const DROP = 13; // bulb centre hangs this far below the wire
 const COLORS = ["var(--color-bulb-red)", "var(--color-gold)", "var(--color-pine-light)"];
 
@@ -17,10 +17,7 @@ function wireY(x: number): number {
 }
 
 export function StringOfLights({ joined, total, label }: { joined: number; total: number; label: string }) {
-  const count = Math.min(MAX_BULBS, Math.max(MIN_BULBS, total));
-  let lit = total > 0 ? Math.round((joined / total) * count) : 0;
-  if (joined > 0) lit = Math.max(lit, 1);
-  if (joined < total) lit = Math.min(lit, count - 1);
+  const { count, lit } = bulbLayout(joined, total);
 
   const bulbs = Array.from({ length: count }, (_, i) => {
     const x = (WIDTH * (i + 0.5)) / count;
