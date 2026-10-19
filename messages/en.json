@@ -60,7 +60,8 @@
     "everyoneLabel": "Everyone in the draw",
     "pendingSuffix": "waiting",
     "drawFailed": "Everyone's in, but the draw couldn't run. The admin is on it.",
-    "joinedAfterDraw": "The draw has already happened. The admin will decide whether to run it again with you in it."
+    "joinedAfterDraw": "The draw has already happened. The admin will decide whether to run it again with you in it.",
+    "drawing": "Everyone's in! Drawing names…"
   },
   "reveal": {
     "eyebrow": "Everyone's in!",
@@ -72,9 +73,7 @@
     "secretBody": "Only you can see this name. It will be here every time you log in."
   },
   "me": {
-    "title": "You're in!",
-    "placeholder": "You're signed in. The waiting room and your gift appear here soon.",
-    "adminLink": "Open the admin panel",
+    "adminLink": "Admin panel",
     "notOnListTitle": "You're no longer on the list",
     "notOnListBody": "The admin has removed your name. Log out, and ask the admin if this is a mistake."
   },

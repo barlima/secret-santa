@@ -60,7 +60,8 @@
     "everyoneLabel": "Wszyscy w losowaniu",
     "pendingSuffix": "czekamy",
     "drawFailed": "Wszyscy są, ale losowanie się nie udało. Admin już się tym zajmuje.",
-    "joinedAfterDraw": "Losowanie już się odbyło. Admin zdecyduje, czy przeprowadzić je jeszcze raz razem z Tobą."
+    "joinedAfterDraw": "Losowanie już się odbyło. Admin zdecyduje, czy przeprowadzić je jeszcze raz razem z Tobą.",
+    "drawing": "Wszyscy są! Trwa losowanie…"
   },
   "reveal": {
     "eyebrow": "Wszyscy są!",
@@ -72,9 +73,7 @@
     "secretBody": "Tylko Ty widzisz to imię. Będzie tu przy każdym logowaniu."
   },
   "me": {
-    "title": "Jesteś w grze!",
-    "placeholder": "Wszystko gotowe. Wkrótce zobaczysz tu poczekalnię i swój prezent.",
-    "adminLink": "Otwórz panel admina",
+    "adminLink": "Panel admina",
     "notOnListTitle": "Nie ma Cię już na liście",
     "notOnListBody": "Admin usunął Twoje imię. Wyloguj się, a jeśli to pomyłka, napisz do admina."
   },
