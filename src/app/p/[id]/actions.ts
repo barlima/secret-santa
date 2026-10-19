@@ -38,7 +38,14 @@ export async function setPassword(
   if (new TextEncoder().encode(password).length > PASSWORD_MAX_LENGTH) return { error: "tooLong" };
   if (password !== confirm) return { error: "mismatch" };
 
-  const admin = createAdminClient();
+  let admin: ReturnType<typeof createAdminClient>;
+  try {
+    admin = createAdminClient();
+  } catch (error) {
+    // Misconfigured SUPABASE_SECRET_KEY: visible in the Vercel runtime logs.
+    console.error("setPassword: admin client unavailable", error);
+    return { error: "generic" };
+  }
 
   const { data: participant, error: readError } = await admin
     .from("participants")
