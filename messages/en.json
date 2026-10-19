@@ -107,7 +107,8 @@
       "removeConfirm": "Remove",
       "resetPasswordTitle": "Reset password for {name}?",
       "resetPasswordBody": "They will choose a new password the next time they open the app. Their draw result stays the same.",
-      "resetPasswordConfirm": "Reset password"
+      "resetPasswordConfirm": "Reset password",
+      "nameTooLong": "A name can have at most {max} characters."
     },
     "spouses": {
       "title": "Spouses",
@@ -156,8 +157,7 @@
       "body": "Add everyone taking part, pair the spouses, then share the link with the group.",
       "warning": "Add the whole group before sharing the link: the draw starts as soon as everyone on the list has a password.",
       "cta": "Add the first person"
-    },
-    "comingSoon": "The admin panel is on its way."
+    }
   },
   "loading": {
     "names": "Loading names…"

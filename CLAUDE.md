@@ -26,7 +26,7 @@ Mobile-first Secret Santa web app for one family. Spec, mockups and the stage pl
 | `/` | signed out | Name picker (`listParticipants`) |
 | `/p/[id]` | signed out | Set password (first visit) or enter password; Server Actions in `src/app/p/[id]/actions.ts` |
 | `/me` | signed in | Waiting room → reveal, chosen by `getMyDrawState()` (`src/lib/draw.ts`); live via `LiveRefresh` |
-| `/admin` | signed in admin | Admin panel; `src/app/admin/layout.tsx` checks `is_admin` |
+| `/admin`, `/admin/spouses`, `/admin/draw` | signed in admin | Admin panel tabs; `src/app/admin/layout.tsx` checks `is_admin`, shows the stale-draw banner and hosts the redraw prompt |
 
 - `src/lib/supabase/proxy.ts` redirects signed-in visitors away from `/` and `/p/*` to `/me`, and signed-out visitors away from `/me` and `/admin` to `/`.
 - Login uses a synthetic email `<participant-id>@santa.local` (`src/lib/auth/participant-email.ts`). Passwords: 6–72 characters.
@@ -36,13 +36,21 @@ Mobile-first Secret Santa web app for one family. Spec, mockups and the stage pl
 - Live updates: `participants` and `draw` are in the `supabase_realtime` publication (`assignments` never is). `src/app/me/LiveRefresh.tsx` calls `router.refresh()` on changes, every 15 s and when the tab becomes visible.
 - Reveal: the own assignment is read through RLS with a join to the receiver's name. "Gift opened" lives in localStorage under `santa:opened:<participant>:<draw run_at>`, so a redraw shows a closed gift again.
 
+## Admin panel
+
+- Data: `getAdminData()` (`src/lib/admin.ts`, cached per request) reads participants, spouse pairs and the draw row as the admin through RLS. It never reads `assignments`.
+- Server Actions in `src/app/admin/actions.ts` run as the signed-in admin: RLS and admin-only RPCs are the real guard. They return `AdminActionState` (`src/app/admin/state.ts`): `error`, `askRedraw`, `seq`, and the typed name on errors.
+- Removing a participant deletes their login via the `participants_delete_auth_user` trigger. Resetting a password calls `rpc('reset_participant_password')` (deletes the login; the draw result stays).
+- After a change to a finished draw the DB only sets `draw.stale`. Actions return `askRedraw`; pass results through `useRedrawCheck()` so the layout-level sheet asks "run a new draw?". The stale banner stays until `rpc('reset_draw')`.
+- Confirmations use `ConfirmSheet` (native `<dialog>` bottom sheet).
+
 ## Supabase clients (`src/lib/supabase/`)
 
 | File | Use from | Acts as |
 | --- | --- | --- |
 | `client.ts` | Client Components | signed-in user, RLS |
 | `server.ts` | Server Components / Actions / Route Handlers | signed-in user, RLS |
-| `admin.ts` | Server Actions only (`server-only`) | secret key, bypasses RLS — only for creating/deleting auth users and claiming a participant |
+| `admin.ts` | Server Actions only (`server-only`) | secret key, bypasses RLS — only `setPassword` (create the auth user, claim the participant). The admin panel does not use it. |
 
 Never read `assignments` with the admin client. Results must stay private via RLS.
 
@@ -66,7 +74,7 @@ Never read `assignments` with the admin client. Results must stay private via RL
 
 - Design at 390 px first, one column, 16 px side padding (`px-4`), primary button pinned to the bottom.
 - Body text ≥ 16 px, names 20–24 px, tap targets ≥ 44 px.
-- Colours only through tokens: `red`, `red-dark`, `pine`, `pine-light`, `gold`, `gold-light`, `snow`, `sand`, `forest`, `moss`, `mist`, `ink`, `paper`, `line`, `divider`, `error`, `error-soft`; dark-screen decoration: `bulb-red`, `wire`, `socket`, `bulb-off`, `socket-off`, `chip-dashed`, `mist-dim`. Gold only on dark surfaces or decoration.
+- Colours only through tokens: `red`, `red-dark`, `pine`, `pine-light`, `gold`, `gold-light`, `snow`, `sand`, `forest`, `moss`, `mist`, `ink`, `paper`, `line`, `divider`, `error`, `error-soft`; `pine-soft`, `wait`, `wait-soft`, `amber`, `amber-soft`; dark-screen decoration: `bulb-red`, `wire`, `socket`, `bulb-off`, `socket-off`, `chip-dashed`, `mist-dim`. Gold only on dark surfaces or decoration.
 - Shared UI in `src/components/`: `icons.tsx`, `PasswordField`, `SubmitButton`, `SignOutButton`, `LanguageSwitcher`.
 - Respect `prefers-reduced-motion` for every animation.
 - All user-facing copy goes through translations (PL / EN / DE) from stage 2 on.

@@ -140,6 +140,10 @@ export type Database = {
     }
     Functions: {
       reset_draw: { Args: never; Returns: undefined }
+      reset_participant_password: {
+        Args: { participant_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
       draw_status: "pending" | "done" | "failed"

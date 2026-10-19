@@ -107,7 +107,8 @@
       "removeConfirm": "Entfernen",
       "resetPasswordTitle": "Passwort von {name} zurücksetzen?",
       "resetPasswordBody": "Die Person legt beim nächsten Öffnen der App ein neues Passwort fest. Das Auslosungsergebnis bleibt gleich.",
-      "resetPasswordConfirm": "Passwort zurücksetzen"
+      "resetPasswordConfirm": "Passwort zurücksetzen",
+      "nameTooLong": "Ein Name darf höchstens {max} Zeichen haben."
     },
     "spouses": {
       "title": "Ehepaare",
@@ -156,8 +157,7 @@
       "body": "Füge alle Teilnehmenden hinzu, verbinde die Ehepaare und teile dann den Link mit der Gruppe.",
       "warning": "Füge die ganze Gruppe hinzu, bevor du den Link teilst: Die Auslosung startet, sobald alle auf der Liste ein Passwort haben.",
       "cta": "Erste Person hinzufügen"
-    },
-    "comingSoon": "Der Admin-Bereich ist unterwegs."
+    }
   },
   "loading": {
     "names": "Namen werden geladen…"
