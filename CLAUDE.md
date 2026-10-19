@@ -10,6 +10,15 @@ Mobile-first Secret Santa web app for one family. Spec, mockups and the stage pl
 - `src/proxy.ts` is Next 16's middleware: it refreshes the Supabase session cookie.
 - Env vars are read lazily via `src/lib/supabase/env.ts` (never at module load), so `next build` works without them. CI builds with no Supabase env on purpose.
 
+## Translations (`next-intl`, no locale in the URL)
+
+- Locales `pl` (default), `en`, `de` in `src/i18n/config.ts`. `src/i18n/request.ts` picks the locale: `NEXT_LOCALE` cookie → `Accept-Language` → `pl`.
+- Copy lives in `messages/{pl,en,de}.json`, namespaced per screen (`picker`, `setPassword`, `waiting`, `reveal`, `admin.*`, …). `en.json` is the source of key types (`src/i18n/global.d.ts`), so `t("…")` keys are type-checked.
+- Add every new string to all three files. `npm run check:messages` (also in CI) fails on missing/extra keys, lost ICU arguments or unbalanced braces.
+- Use ICU plurals for counts; Polish needs `one` / `few` / `many` / `other`.
+- `<LanguageSwitcher tone="light" | "dark" />` (Server Component) posts to the `setLocale` Server Action, which sets the cookie for a year; the route re-renders in the new language. Put it on every screen.
+- Server Components: `getTranslations("namespace")`. Client Components: `useTranslations("namespace")` (the root layout wraps everything in `NextIntlClientProvider`).
+
 ## Supabase clients (`src/lib/supabase/`)
 
 | File | Use from | Acts as |

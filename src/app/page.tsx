@@ -1,15 +1,18 @@
+import { getTranslations } from "next-intl/server";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { EVENT_YEAR } from "@/lib/event";
 import { createClient } from "@/lib/supabase/server";
 
-// Temporary start page for stage 1: proves fonts, colour tokens and the
+// Temporary start page: proves fonts, colour tokens, translations and the
 // Supabase connection work on the Vercel preview. Replaced by the name
 // picker in stage 3.
 
 const swatches = [
-  { name: "Christmas red", className: "bg-red", hex: "#C1121F" },
-  { name: "Pine green", className: "bg-pine", hex: "#1B5E3A" },
-  { name: "Warm gold", className: "bg-gold", hex: "#E0B04C" },
-  { name: "Snow white", className: "bg-snow border border-sand", hex: "#FBF8F3" },
-  { name: "Deep forest", className: "bg-forest", hex: "#0F2A1D" },
+  { key: "red", className: "bg-red", hex: "#C1121F" },
+  { key: "pine", className: "bg-pine", hex: "#1B5E3A" },
+  { key: "gold", className: "bg-gold", hex: "#E0B04C" },
+  { key: "snow", className: "bg-snow border border-sand", hex: "#FBF8F3" },
+  { key: "forest", className: "bg-forest", hex: "#0F2A1D" },
 ] as const;
 
 async function getParticipantCount(): Promise<number | null> {
@@ -25,31 +28,34 @@ async function getParticipantCount(): Promise<number | null> {
 }
 
 export default async function Home() {
-  const participantCount = await getParticipantCount();
-  const connected = participantCount !== null;
-
+  const [participantCount, t, tCommon] = await Promise.all([
+    getParticipantCount(),
+    getTranslations("home"),
+    getTranslations("common"),
+  ]);
   return (
     <main className="mx-auto flex min-h-dvh max-w-md flex-col gap-8 px-4 pt-4 pb-8">
-      <header className="flex min-h-11 items-center gap-2">
-        <GiftIcon />
-        <span className="font-display text-lg font-extrabold">Secret Santa</span>
+      <header className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <GiftIcon />
+          <span className="font-display text-lg font-extrabold">{tCommon("appName")}</span>
+        </div>
+        <LanguageSwitcher />
       </header>
 
       <section>
         <p className="text-[13px] font-bold tracking-[0.1em] text-pine uppercase">
-          Family Christmas 2026
+          {tCommon("eventTitle", { year: EVENT_YEAR })}
         </p>
         <h1 className="mt-1.5 font-display text-4xl leading-[1.05] font-extrabold">
-          Coming soon
+          {t("title")}
         </h1>
-        <p className="mt-2 text-base text-moss">
-          The app skeleton is up. Sign-in arrives in the next stage.
-        </p>
+        <p className="mt-2 text-base text-moss">{t("intro")}</p>
       </section>
 
       <section aria-labelledby="palette" className="flex flex-col gap-2">
         <h2 id="palette" className="text-sm font-bold tracking-[0.08em] text-moss uppercase">
-          Palette
+          {t("paletteHeading")}
         </h2>
         <ul className="flex flex-col gap-2">
           {swatches.map((s) => (
@@ -57,8 +63,8 @@ export default async function Home() {
               key={s.hex}
               className="flex min-h-15 items-center gap-4 rounded-card bg-white px-4 shadow-card"
             >
-              <span aria-hidden="true" className={`size-9 rounded-full ${s.className}`} />
-              <span className="flex-1 text-[21px] font-semibold">{s.name}</span>
+              <span aria-hidden="true" className={`size-9 shrink-0 rounded-full ${s.className}`} />
+              <span className="flex-1 text-[21px] font-semibold">{t(`colors.${s.key}`)}</span>
               <span className="text-sm font-semibold text-moss">{s.hex}</span>
             </li>
           ))}
@@ -68,25 +74,26 @@ export default async function Home() {
       <section className="flex items-start gap-3 rounded-card bg-forest p-4 text-snow">
         <span
           aria-hidden="true"
-          className={`mt-1.5 size-2 shrink-0 rounded-full ${connected ? "bg-pine-light" : "bg-red"}`}
+          className={`mt-1.5 size-2 shrink-0 rounded-full ${participantCount !== null ? "bg-pine-light" : "bg-red"}`}
         />
-        <p className="text-[15px] leading-snug">
-          <strong className="font-bold">
-            {connected ? "Supabase connected." : "Supabase not reachable."}
-          </strong>{" "}
-          <span className="text-mist">
-            {connected
-              ? `${participantCount} ${participantCount === 1 ? "participant" : "participants"} in the database.`
-              : "Check the environment variables in Vercel."}
-          </span>
-        </p>
+        {participantCount !== null ? (
+          <p className="text-[15px] leading-snug">
+            <strong className="font-bold">{t("dbConnected")}</strong>{" "}
+            <span className="text-mist">{t("dbParticipants", { count: participantCount })}</span>
+          </p>
+        ) : (
+          <p className="text-[15px] leading-snug">
+            <strong className="font-bold">{t("dbUnreachable")}</strong>{" "}
+            <span className="text-mist">{t("dbCheckEnv")}</span>
+          </p>
+        )}
       </section>
 
       <button
         type="button"
-        className="mt-auto h-14 rounded-card bg-red text-lg font-bold text-white shadow-[0_6px_16px_rgb(193_18_31/0.25)] transition-transform active:scale-[0.98]"
+        className="mt-auto h-14 rounded-card bg-red text-lg font-bold text-white shadow-[0_6px_16px_rgb(193_18_31/0.25)] transition-transform active:scale-[0.98] motion-reduce:transition-none"
       >
-        Primary button
+        {t("primaryButton")}
       </button>
     </main>
   );

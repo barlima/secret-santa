@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from "next";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Bricolage_Grotesque, Figtree } from "next/font/google";
 import "./globals.css";
 
@@ -16,11 +18,14 @@ const figtree = Figtree({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Secret Santa",
-  description: "Family Secret Santa draw",
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations();
+  return {
+    title: t("common.appName"),
+    description: t("metadata.description"),
+    robots: { index: false, follow: false },
+  };
+}
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -28,13 +33,17 @@ export const viewport: Viewport = {
   themeColor: "#FBF8F3",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const locale = await getLocale();
+
   return (
-    // Language switching (PL / EN / DE) arrives in stage 2.
-    <html lang="pl" className={`${bricolage.variable} ${figtree.variable}`}>
-      <body className="min-h-dvh antialiased">{children}</body>
+    <html lang={locale} className={`${bricolage.variable} ${figtree.variable}`}>
+      <body className="min-h-dvh antialiased">
+        {/* Passes locale and messages to Client Components. */}
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+      </body>
     </html>
   );
 }

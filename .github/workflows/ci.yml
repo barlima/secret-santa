@@ -32,6 +32,9 @@ jobs:
         run: |
           if [ -f package-lock.json ]; then npm ci; else npm install --no-audit --no-fund; fi
 
+      - name: Check translations (pl / en / de)
+        run: npm run check:messages
+
       - name: Generate route types
         run: npx next typegen
 

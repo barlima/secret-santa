@@ -1,0 +1,177 @@
+{
+  "common": {
+    "appName": "Wichteln",
+    "eventTitle": "Familienweihnachten {year}",
+    "logOut": "Abmelden",
+    "notYou": "Nicht du?",
+    "showPassword": "Passwort anzeigen",
+    "hidePassword": "Passwort verbergen",
+    "cancel": "Abbrechen",
+    "liveUpdates": "Diese Seite aktualisiert sich von selbst."
+  },
+  "language": {
+    "label": "Sprache",
+    "names": {
+      "pl": "Polski",
+      "en": "English",
+      "de": "Deutsch"
+    }
+  },
+  "metadata": {
+    "description": "Unsere Familien-Wichtelauslosung"
+  },
+  "home": {
+    "title": "Bald geht's los",
+    "intro": "Das App-Gerüst steht. Die Anmeldung folgt in einer späteren Phase.",
+    "paletteHeading": "Farbpalette",
+    "colors": {
+      "red": "Weihnachtsrot",
+      "pine": "Tannengrün",
+      "gold": "Warmes Gold",
+      "snow": "Schneeweiß",
+      "forest": "Tiefes Waldgrün"
+    },
+    "dbConnected": "Verbindung zu Supabase steht.",
+    "dbParticipants": "{count, plural, one {# Teilnehmer} other {# Teilnehmende}} in der Datenbank.",
+    "dbUnreachable": "Supabase nicht erreichbar.",
+    "dbCheckEnv": "Prüfe die Umgebungsvariablen in Vercel.",
+    "primaryButton": "Hauptschaltfläche"
+  },
+  "picker": {
+    "title": "Wer bist du?",
+    "intro": "Tippe auf deinen Namen, um dich anzumelden.",
+    "listLabel": "Teilnehmende",
+    "joined": "Dabei",
+    "progress": "{joined} von {total} {joined, plural, one {ist} other {sind}} dabei"
+  },
+  "setPassword": {
+    "eyebrow": "Zum ersten Mal hier",
+    "intro": "Wähle ein Passwort. Damit kommst du zurück und siehst, wen du beschenkst.",
+    "passwordLabel": "Passwort",
+    "passwordHint": "Mindestens {min} Zeichen.",
+    "confirmLabel": "Passwort bestätigen",
+    "tooShort": "Das Passwort braucht mindestens {min} Zeichen.",
+    "mismatch": "Die Passwörter stimmen nicht überein.",
+    "alreadyClaimed": "Für diesen Namen wurde gerade ein Passwort gesetzt. Wenn du das nicht warst, frag die Admin-Person.",
+    "submit": "Passwort speichern",
+    "drawNote": "Die Auslosung startet von selbst, sobald alle dabei sind."
+  },
+  "enterPassword": {
+    "eyebrow": "Willkommen zurück",
+    "passwordLabel": "Passwort",
+    "wrongPassword": "Das Passwort stimmt nicht. Versuch es noch einmal.",
+    "forgotTitle": "Vergessen?",
+    "forgotBody": "Bitte die Admin-Person, dein Passwort zurückzusetzen. Beim nächsten Mal legst du ein neues fest.",
+    "submit": "Anmelden"
+  },
+  "waiting": {
+    "greeting": "Hallo, {name}",
+    "progressCount": "{joined} von {total}",
+    "progressLabel": "{joined, plural, one {ist dabei} other {sind dabei}}",
+    "waitingFor": "Wir warten noch auf {names}.",
+    "lightsLabel": "Lichterkette, {lit} von {total} leuchten",
+    "everyoneLabel": "Alle in der Auslosung",
+    "pendingSuffix": "fehlt noch",
+    "drawFailed": "Alle sind dabei, aber die Auslosung hat nicht geklappt. Die Admin-Person kümmert sich darum.",
+    "joinedAfterDraw": "Die Auslosung hat schon stattgefunden. Die Admin-Person entscheidet, ob sie mit dir neu ausgelost wird."
+  },
+  "reveal": {
+    "eyebrow": "Alle sind dabei!",
+    "title": "Dein Wichtel steht fest",
+    "openGift": "Geschenk öffnen",
+    "tapHint": "Tippe auf das Geschenk, um es zu öffnen",
+    "buyingFor": "Du beschenkst",
+    "secretTitle": "Psst, nicht verraten!",
+    "secretBody": "Nur du siehst diesen Namen. Er ist bei jeder Anmeldung hier."
+  },
+  "admin": {
+    "badge": "Admin",
+    "myResult": "Mein Ergebnis",
+    "sectionsLabel": "Admin-Bereiche",
+    "tabs": {
+      "people": "Personen",
+      "spouses": "Paare",
+      "draw": "Auslosung"
+    },
+    "participants": {
+      "title": "Teilnehmende",
+      "addLabel": "Person hinzufügen",
+      "namePlaceholder": "Vor- und Nachname",
+      "add": "Hinzufügen",
+      "summary": "{total, plural, one {# Person} other {# Personen}} · {joined} dabei",
+      "joined": "Dabei",
+      "notYet": "Noch nicht",
+      "you": "Du",
+      "rename": "{name} umbenennen",
+      "renameSave": "Speichern",
+      "resetPassword": "Passwort von {name} zurücksetzen",
+      "resetPasswordUnavailable": "Passwort von {name} zurücksetzen (noch kein Passwort)",
+      "remove": "{name} entfernen",
+      "duplicateName": "Diese Person steht schon auf der Liste.",
+      "emptyName": "Gib einen Namen ein.",
+      "removeTitle": "{name} entfernen?",
+      "removeBody": "Die Person verschwindet von der Liste und aus ihrem Paar.",
+      "removeConfirm": "Entfernen",
+      "resetPasswordTitle": "Passwort von {name} zurücksetzen?",
+      "resetPasswordBody": "Die Person legt beim nächsten Öffnen der App ein neues Passwort fest. Das Auslosungsergebnis bleibt gleich.",
+      "resetPasswordConfirm": "Passwort zurücksetzen"
+    },
+    "spouses": {
+      "title": "Ehepaare",
+      "intro": "Ehepartner ziehen sich nie gegenseitig. Jede Person kann einen Ehepartner haben.",
+      "personLabel": "Person",
+      "spouseLabel": "Ehepartner",
+      "pair": "Als Paar verbinden",
+      "pairsCount": "{count, plural, =0 {Keine Paare} one {# Paar} other {# Paare}}",
+      "unpair": "Trennen",
+      "notPaired": "Ohne Paar",
+      "alreadyPaired": "Eine dieser Personen ist schon in einem Paar. Trenne es zuerst.",
+      "samePerson": "Wähle zwei verschiedene Personen."
+    },
+    "draw": {
+      "title": "Auslosung",
+      "waitingLabel": "Warten",
+      "joinedCount": "{joined} von {total} {joined, plural, one {ist} other {sind}} dabei",
+      "progressLabel": "Anmeldungen",
+      "stillMissing": "Es fehlen noch: {names}. Die Auslosung startet von selbst, sobald die letzte Person ein Passwort festlegt.",
+      "doneLabel": "Fertig",
+      "doneTitle": "Alle haben ihren Wichtel",
+      "doneBody": "Ausgelost am {date, date, short} um {date, time, short} · {count, plural, one {# Person} other {# Personen}}. Die Ergebnisse sind privat: Jede Person sieht nur ihr eigenes, du auch.",
+      "failedLabel": "Fehlgeschlagen",
+      "failedTitle": "Die Auslosung hat nicht geklappt",
+      "failedReasons": {
+        "too_few_people": "Für eine Auslosung sind zu wenige Personen dabei. Füge mindestens eine weitere hinzu.",
+        "no_valid_assignment": "Mit den aktuellen Paaren gibt es keine gültige Zuteilung. Füge mehr Personen hinzu oder trenne ein Paar und lose neu aus.",
+        "unknown": "Etwas ist schiefgelaufen. Versuch die Auslosung noch einmal."
+      },
+      "runAgain": "Neu auslosen",
+      "staleTitle": "Die Gruppe hat sich nach der Auslosung geändert",
+      "staleBody": "Die aktuellen Ergebnisse enthalten die letzten Änderungen nicht. Lose neu aus, damit alle dabei sind.",
+      "staleDialogTitle": "Die Gruppe hat sich geändert",
+      "staleDialogBody": "Möchtest du neu auslosen?",
+      "staleDialogConfirm": "Ja, neu auslosen",
+      "staleDialogDismiss": "Jetzt nicht",
+      "resetHeading": "Auslosung zurücksetzen",
+      "resetBody": "Löscht alle Ergebnisse. Eine neue Auslosung startet, sobald alle angemeldet sind. Wenn du nach der Auslosung jemanden hinzufügst oder entfernst, fragen wir dich ebenfalls.",
+      "resetButton": "Auslosung zurücksetzen…",
+      "resetDialogTitle": "Auslosung zurücksetzen?",
+      "resetDialogBody": "Alle aktuellen Ergebnisse werden gelöscht. Wer sein Geschenk schon geöffnet hat, bekommt einen neuen Wichtel.",
+      "resetDialogConfirm": "Zurücksetzen"
+    },
+    "empty": {
+      "title": "Noch niemand da",
+      "body": "Füge alle Teilnehmenden hinzu, verbinde die Ehepaare und teile dann den Link mit der Gruppe.",
+      "warning": "Füge die ganze Gruppe hinzu, bevor du den Link teilst: Die Auslosung startet, sobald alle auf der Liste ein Passwort haben.",
+      "cta": "Erste Person hinzufügen"
+    }
+  },
+  "loading": {
+    "names": "Namen werden geladen…"
+  },
+  "error": {
+    "title": "Etwas ist schiefgelaufen",
+    "body": "Der Server ist nicht erreichbar. Prüfe deine Verbindung und versuch es noch einmal.",
+    "retry": "Noch einmal versuchen",
+    "backToStart": "Zurück zum Start"
+  }
+}
