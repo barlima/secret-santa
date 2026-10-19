@@ -3,9 +3,14 @@ import { NextResponse, type NextRequest } from "next/server";
 import type { Database } from "@/lib/database.types";
 import { readSupabaseEnv } from "./env";
 
+/** Pages only for signed-out visitors: the name picker and the password screens. */
+const SIGNED_OUT_ONLY = [/^\/$/, /^\/p\/[^/]+\/?$/];
+/** Pages that need a session. Admin role is checked again in the admin layout. */
+const SIGNED_IN_ONLY = [/^\/me(\/|$)/, /^\/admin(\/|$)/];
+
 /**
- * Refreshes the Supabase session cookie on every request.
- * Route protection (login / admin) is added in stage 3.
+ * Refreshes the Supabase session cookie on every request and routes
+ * signed-in and signed-out visitors to the right side of the app.
  */
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -36,7 +41,28 @@ export async function updateSession(request: NextRequest) {
 
   // Do not put code between createServerClient and getClaims():
   // getClaims() validates the JWT and triggers the token refresh.
-  await supabase.auth.getClaims();
+  const { data } = await supabase.auth.getClaims();
+  const signedIn = Boolean(data?.claims?.sub);
+
+  const path = request.nextUrl.pathname;
+  if (signedIn && SIGNED_OUT_ONLY.some((re) => re.test(path))) {
+    return redirectKeepingCookies(request, response, "/me");
+  }
+  if (!signedIn && SIGNED_IN_ONLY.some((re) => re.test(path))) {
+    return redirectKeepingCookies(request, response, "/");
+  }
 
   return response;
+}
+
+/** A redirect must carry any refreshed session cookies, or the user gets logged out. */
+function redirectKeepingCookies(request: NextRequest, from: NextResponse, pathname: string) {
+  const url = request.nextUrl.clone();
+  url.pathname = pathname;
+  url.search = "";
+  const redirect = NextResponse.redirect(url);
+  for (const cookie of from.cookies.getAll()) {
+    redirect.cookies.set(cookie);
+  }
+  return redirect;
 }

@@ -7,7 +7,8 @@
     "showPassword": "Pokaż hasło",
     "hidePassword": "Ukryj hasło",
     "cancel": "Anuluj",
-    "liveUpdates": "Ta strona odświeża się sama."
+    "liveUpdates": "Ta strona odświeża się sama.",
+    "genericError": "Coś poszło nie tak. Spróbuj za chwilę."
   },
   "language": {
     "label": "Język",
@@ -20,41 +21,26 @@
   "metadata": {
     "description": "Rodzinne losowanie Tajnego Mikołaja"
   },
-  "home": {
-    "title": "Już wkrótce",
-    "intro": "Szkielet aplikacji działa. Logowanie pojawi się w kolejnym etapie.",
-    "paletteHeading": "Paleta",
-    "colors": {
-      "red": "Świąteczna czerwień",
-      "pine": "Sosnowa zieleń",
-      "gold": "Ciepłe złoto",
-      "snow": "Śnieżna biel",
-      "forest": "Głęboki las"
-    },
-    "dbConnected": "Połączenie z Supabase działa.",
-    "dbParticipants": "W bazie {count, plural, one {jest # uczestnik} few {są # uczestnicy} many {jest # uczestników} other {jest # uczestnika}}.",
-    "dbUnreachable": "Brak połączenia z Supabase.",
-    "dbCheckEnv": "Sprawdź zmienne środowiskowe w Vercelu.",
-    "primaryButton": "Główny przycisk"
-  },
   "picker": {
     "title": "Kim jesteś?",
     "intro": "Dotknij swojego imienia, żeby się zalogować.",
     "listLabel": "Uczestnicy",
     "joined": "Jest",
-    "progress": "Już {joined, plural, few {są} other {jest}} {joined} z {total} osób"
+    "progress": "Już {joined, plural, few {są} other {jest}} {joined} z {total} osób",
+    "empty": "Na liście nikogo jeszcze nie ma. Poproś admina, żeby dodał wszystkich."
   },
   "setPassword": {
     "eyebrow": "Pierwszy raz tutaj",
     "intro": "Wybierz hasło. Dzięki niemu wrócisz tu i zobaczysz, komu kupujesz prezent.",
     "passwordLabel": "Hasło",
-    "passwordHint": "Co najmniej {min} znaków.",
+    "passwordHint": "Co najmniej {min, plural, one {# znak} few {# znaki} many {# znaków} other {# znaku}}.",
     "confirmLabel": "Powtórz hasło",
-    "tooShort": "Hasło musi mieć co najmniej {min} znaków.",
+    "tooShort": "Hasło musi mieć co najmniej {min, plural, one {# znak} few {# znaki} many {# znaków} other {# znaku}}.",
     "mismatch": "Hasła się różnią.",
     "alreadyClaimed": "Ktoś przed chwilą ustawił hasło dla tego imienia. Jeśli to nie Ty, napisz do admina.",
     "submit": "Zapisz hasło",
-    "drawNote": "Losowanie ruszy samo, gdy wszyscy dołączą."
+    "drawNote": "Losowanie ruszy samo, gdy wszyscy dołączą.",
+    "tooLong": "Hasło może mieć najwyżej {max, plural, one {# znak} few {# znaki} many {# znaków} other {# znaku}}."
   },
   "enterPassword": {
     "eyebrow": "Witaj ponownie",
@@ -62,7 +48,8 @@
     "wrongPassword": "To nie jest właściwe hasło. Spróbuj jeszcze raz.",
     "forgotTitle": "Nie pamiętasz?",
     "forgotBody": "Poproś admina o zresetowanie hasła. Przy następnej wizycie ustawisz nowe.",
-    "submit": "Zaloguj się"
+    "submit": "Zaloguj się",
+    "tooManyAttempts": "Za dużo prób. Odczekaj minutę i spróbuj ponownie."
   },
   "waiting": {
     "greeting": "Cześć, {name}",
@@ -83,6 +70,13 @@
     "buyingFor": "Kupujesz prezent dla",
     "secretTitle": "Ani słowa!",
     "secretBody": "Tylko Ty widzisz to imię. Będzie tu przy każdym logowaniu."
+  },
+  "me": {
+    "title": "Jesteś w grze!",
+    "placeholder": "Wszystko gotowe. Wkrótce zobaczysz tu poczekalnię i swój prezent.",
+    "adminLink": "Otwórz panel admina",
+    "notOnListTitle": "Nie ma Cię już na liście",
+    "notOnListBody": "Admin usunął Twoje imię. Wyloguj się, a jeśli to pomyłka, napisz do admina."
   },
   "admin": {
     "badge": "Admin",
@@ -163,7 +157,8 @@
       "body": "Dodaj wszystkich uczestników, połącz małżonków w pary, a potem wyślij link rodzinie.",
       "warning": "Dodaj całą grupę, zanim wyślesz link: losowanie rusza, gdy wszyscy z listy mają hasło.",
       "cta": "Dodaj pierwszą osobę"
-    }
+    },
+    "comingSoon": "Panel admina jest w drodze."
   },
   "loading": {
     "names": "Wczytuję imiona…"

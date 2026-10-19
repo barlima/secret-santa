@@ -14,6 +14,11 @@
   --color-moss: #4a5d52; /* secondary text on light */
   --color-mist: #c9d6cf; /* secondary text on dark */
   --color-error: #a50f1a;
+  --color-line: #cfd8d2; /* input borders */
+  --color-divider: #ece5da; /* bottom-bar and list separators */
+  --color-paper: #f2ede3; /* hint boxes on light screens */
+  --color-error-soft: #fbe3e4; /* error banner background */
+  --color-ink: #2e4238; /* long-form body text on paper */
 
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;

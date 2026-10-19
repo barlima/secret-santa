@@ -7,7 +7,8 @@
     "showPassword": "Show password",
     "hidePassword": "Hide password",
     "cancel": "Cancel",
-    "liveUpdates": "This page updates by itself."
+    "liveUpdates": "This page updates by itself.",
+    "genericError": "Something went wrong. Try again in a moment."
   },
   "language": {
     "label": "Language",
@@ -20,29 +21,13 @@
   "metadata": {
     "description": "Our family Secret Santa draw"
   },
-  "home": {
-    "title": "Coming soon",
-    "intro": "The app skeleton is up. Sign-in arrives in a later stage.",
-    "paletteHeading": "Palette",
-    "colors": {
-      "red": "Christmas red",
-      "pine": "Pine green",
-      "gold": "Warm gold",
-      "snow": "Snow white",
-      "forest": "Deep forest"
-    },
-    "dbConnected": "Supabase connected.",
-    "dbParticipants": "{count, plural, one {# participant} other {# participants}} in the database.",
-    "dbUnreachable": "Supabase not reachable.",
-    "dbCheckEnv": "Check the environment variables in Vercel.",
-    "primaryButton": "Primary button"
-  },
   "picker": {
     "title": "Who are you?",
     "intro": "Tap your name to sign in.",
     "listLabel": "Participants",
     "joined": "Joined",
-    "progress": "{joined} of {total} have joined"
+    "progress": "{joined} of {total} have joined",
+    "empty": "No one is on the list yet. Ask the admin to add everyone."
   },
   "setPassword": {
     "eyebrow": "First time here",
@@ -54,7 +39,8 @@
     "mismatch": "Passwords don't match.",
     "alreadyClaimed": "Someone has just set a password for this name. If it wasn't you, ask the admin.",
     "submit": "Save password",
-    "drawNote": "The draw starts by itself once everyone has joined."
+    "drawNote": "The draw starts by itself once everyone has joined.",
+    "tooLong": "The password can have at most {max} characters."
   },
   "enterPassword": {
     "eyebrow": "Welcome back",
@@ -62,7 +48,8 @@
     "wrongPassword": "That's not the right password. Try again.",
     "forgotTitle": "Forgot it?",
     "forgotBody": "Ask the admin to reset your password. You'll set a new one next time.",
-    "submit": "Log in"
+    "submit": "Log in",
+    "tooManyAttempts": "Too many attempts. Wait a minute and try again."
   },
   "waiting": {
     "greeting": "Hi, {name}",
@@ -83,6 +70,13 @@
     "buyingFor": "You're buying a gift for",
     "secretTitle": "Keep it secret!",
     "secretBody": "Only you can see this name. It will be here every time you log in."
+  },
+  "me": {
+    "title": "You're in!",
+    "placeholder": "You're signed in. The waiting room and your gift appear here soon.",
+    "adminLink": "Open the admin panel",
+    "notOnListTitle": "You're no longer on the list",
+    "notOnListBody": "The admin has removed your name. Log out, and ask the admin if this is a mistake."
   },
   "admin": {
     "badge": "Admin",
@@ -163,7 +157,8 @@
       "body": "Add everyone taking part, pair the spouses, then share the link with the group.",
       "warning": "Add the whole group before sharing the link: the draw starts as soon as everyone on the list has a password.",
       "cta": "Add the first person"
-    }
+    },
+    "comingSoon": "The admin panel is on its way."
   },
   "loading": {
     "names": "Loading names…"
