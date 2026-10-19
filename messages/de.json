@@ -60,7 +60,8 @@
     "everyoneLabel": "Alle in der Auslosung",
     "pendingSuffix": "fehlt noch",
     "drawFailed": "Alle sind dabei, aber die Auslosung hat nicht geklappt. Die Admin-Person kümmert sich darum.",
-    "joinedAfterDraw": "Die Auslosung hat schon stattgefunden. Die Admin-Person entscheidet, ob sie mit dir neu ausgelost wird."
+    "joinedAfterDraw": "Die Auslosung hat schon stattgefunden. Die Admin-Person entscheidet, ob sie mit dir neu ausgelost wird.",
+    "drawing": "Alle sind dabei! Die Namen werden ausgelost…"
   },
   "reveal": {
     "eyebrow": "Alle sind dabei!",
@@ -72,9 +73,7 @@
     "secretBody": "Nur du siehst diesen Namen. Er ist bei jeder Anmeldung hier."
   },
   "me": {
-    "title": "Du bist dabei!",
-    "placeholder": "Du bist angemeldet. Bald siehst du hier den Warteraum und dein Geschenk.",
-    "adminLink": "Admin-Bereich öffnen",
+    "adminLink": "Admin-Bereich",
     "notOnListTitle": "Du stehst nicht mehr auf der Liste",
     "notOnListBody": "Die Admin-Person hat deinen Namen entfernt. Melde dich ab und frag nach, falls das ein Versehen war."
   },

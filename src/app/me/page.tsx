@@ -4,18 +4,29 @@ import { redirect } from "next/navigation";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SignOutButton } from "@/components/SignOutButton";
 import { GiftIcon } from "@/components/icons";
+import { getMyDrawState } from "@/lib/draw";
 import { firstName, getCurrentParticipant } from "@/lib/participants";
+import { LiveRefresh } from "./LiveRefresh";
+import { RevealGift } from "./RevealGift";
+import { WaitingRoom } from "./WaitingRoom";
 
 /**
- * Home for a signed-in participant. Stage 3 placeholder: stage 4 turns this
- * into the waiting room (Waiting.dc.html) and the reveal (Reveal.dc.html).
+ * Signed-in participant home. Shows the waiting room until the draw is done,
+ * then the reveal. Updates live while waiting.
  */
 export default async function MePage() {
   const session = await getCurrentParticipant();
   if (!session) redirect("/");
 
-  const [t, tWaiting] = await Promise.all([getTranslations("me"), getTranslations("waiting")]);
   const { participant } = session;
+  const [t, tWaiting, tCommon, state] = await Promise.all([
+    getTranslations("me"),
+    getTranslations("waiting"),
+    getTranslations("common"),
+    participant ? getMyDrawState(participant.id) : Promise.resolve(null),
+  ]);
+
+  const live = state !== null && state.kind !== "revealed";
 
   return (
     <div className="min-h-dvh bg-forest text-snow">
@@ -32,30 +43,48 @@ export default async function MePage() {
           <LanguageSwitcher tone="dark" />
         </header>
 
-        {participant ? (
-          <section className="flex flex-col gap-3">
-            <h1 className="font-display text-[32px] leading-[1.1] font-extrabold">{t("title")}</h1>
-            <p className="text-[17px] leading-normal text-mist">{t("placeholder")}</p>
-            {participant.is_admin && (
-              <Link
-                href="/admin"
-                className="mt-3 inline-flex h-13 items-center justify-center rounded-xl border-2 border-gold px-5 text-base font-bold text-gold hover:bg-gold/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
-              >
-                {t("adminLink")}
-              </Link>
-            )}
-          </section>
-        ) : (
+        {!participant || !state ? (
           <section className="flex flex-col gap-3">
             <h1 className="font-display text-[28px] leading-[1.15] font-extrabold">{t("notOnListTitle")}</h1>
             <p className="text-[17px] leading-normal text-mist">{t("notOnListBody")}</p>
           </section>
+        ) : state.kind === "revealed" ? (
+          <RevealGift
+            receiverName={state.receiverName}
+            storageKey={`santa:opened:${participant.id}:${state.drawnAt ?? "draw"}`}
+          />
+        ) : state.kind === "joinedAfterDraw" ? (
+          <section className="flex flex-col gap-3 pt-6">
+            <h1 className="font-display text-[26px] leading-[1.25] font-semibold">{tWaiting("joinedAfterDraw")}</h1>
+          </section>
+        ) : (
+          <WaitingRoom members={state.members} kind={state.kind} />
         )}
 
-        <footer className="mt-auto flex justify-center border-t border-white/10 pt-[18px] pb-7">
-          <SignOutButton tone="dark" />
+        <footer className="mt-auto flex flex-col items-center gap-2 border-t border-white/10 pt-[18px] pb-7">
+          {live && (
+            <p className="flex items-center gap-2 text-[15px] text-mist">
+              <span
+                aria-hidden="true"
+                className="size-2 rounded-full bg-pine-light shadow-[0_0_0_4px_rgb(63_160_106/0.25)]"
+              />
+              {tCommon("liveUpdates")}
+            </p>
+          )}
+          <div className="flex flex-wrap items-center justify-center gap-x-4">
+            {participant?.is_admin && (
+              <Link
+                href="/admin"
+                className="inline-flex min-h-11 items-center rounded-lg px-2 text-base font-semibold text-gold hover:text-gold-light focus-visible:outline-2 focus-visible:outline-gold"
+              >
+                {t("adminLink")}
+              </Link>
+            )}
+            <SignOutButton tone="dark" />
+          </div>
         </footer>
       </main>
+      {live && <LiveRefresh />}
     </div>
   );
 }
