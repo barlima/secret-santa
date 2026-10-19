@@ -1,122 +1,69 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import Link from "next/link";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { ChevronRightIcon, GiftIcon, JoinedCheckIcon } from "@/components/icons";
 import { EVENT_YEAR } from "@/lib/event";
-import { createClient } from "@/lib/supabase/server";
+import { listParticipants } from "@/lib/participants";
 
-// Temporary start page: proves fonts, colour tokens, translations and the
-// Supabase connection work on the Vercel preview. Replaced by the name
-// picker in stage 3.
-
-const swatches = [
-  { key: "red", className: "bg-red", hex: "#C1121F" },
-  { key: "pine", className: "bg-pine", hex: "#1B5E3A" },
-  { key: "gold", className: "bg-gold", hex: "#E0B04C" },
-  { key: "snow", className: "bg-snow border border-sand", hex: "#FBF8F3" },
-  { key: "forest", className: "bg-forest", hex: "#0F2A1D" },
-] as const;
-
-async function getParticipantCount(): Promise<number | null> {
-  try {
-    const supabase = await createClient();
-    const { count, error } = await supabase
-      .from("participants")
-      .select("id", { count: "exact", head: true });
-    return error ? null : count;
-  } catch {
-    return null;
-  }
-}
-
-export default async function Home() {
-  const [participantCount, t, tCommon] = await Promise.all([
-    getParticipantCount(),
-    getTranslations("home"),
+/** Screen 1: pick your name (Main.dc.html). */
+export default async function PickNamePage() {
+  const locale = await getLocale();
+  const [participants, t, tCommon] = await Promise.all([
+    listParticipants(locale),
+    getTranslations("picker"),
     getTranslations("common"),
   ]);
+  const joined = participants.filter((p) => p.has_password).length;
+
   return (
-    <main className="mx-auto flex min-h-dvh max-w-md flex-col gap-8 px-4 pt-4 pb-8">
+    <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col gap-[22px] px-4 pt-4 pb-6">
       <header className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <GiftIcon />
+          <GiftIcon size={26} className="text-red" />
           <span className="font-display text-lg font-extrabold">{tCommon("appName")}</span>
         </div>
         <LanguageSwitcher />
       </header>
 
-      <section>
+      <div>
         <p className="text-[13px] font-bold tracking-[0.1em] text-pine uppercase">
           {tCommon("eventTitle", { year: EVENT_YEAR })}
         </p>
-        <h1 className="mt-1.5 font-display text-4xl leading-[1.05] font-extrabold">
-          {t("title")}
-        </h1>
+        <h1 className="mt-1.5 font-display text-4xl leading-[1.05] font-extrabold">{t("title")}</h1>
         <p className="mt-2 text-base text-moss">{t("intro")}</p>
-      </section>
+      </div>
 
-      <section aria-labelledby="palette" className="flex flex-col gap-2">
-        <h2 id="palette" className="text-sm font-bold tracking-[0.08em] text-moss uppercase">
-          {t("paletteHeading")}
-        </h2>
-        <ul className="flex flex-col gap-2">
-          {swatches.map((s) => (
-            <li
-              key={s.hex}
-              className="flex min-h-15 items-center gap-4 rounded-card bg-white px-4 shadow-card"
-            >
-              <span aria-hidden="true" className={`size-9 shrink-0 rounded-full ${s.className}`} />
-              <span className="flex-1 text-[21px] font-semibold">{t(`colors.${s.key}`)}</span>
-              <span className="text-sm font-semibold text-moss">{s.hex}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="flex items-start gap-3 rounded-card bg-forest p-4 text-snow">
-        <span
-          aria-hidden="true"
-          className={`mt-1.5 size-2 shrink-0 rounded-full ${participantCount !== null ? "bg-pine-light" : "bg-red"}`}
-        />
-        {participantCount !== null ? (
-          <p className="text-[15px] leading-snug">
-            <strong className="font-bold">{t("dbConnected")}</strong>{" "}
-            <span className="text-mist">{t("dbParticipants", { count: participantCount })}</span>
+      {participants.length === 0 ? (
+        <p className="rounded-card bg-paper px-4 py-3.5 text-base text-ink">{t("empty")}</p>
+      ) : (
+        <>
+          <nav aria-label={t("listLabel")}>
+            <ul className="flex flex-col gap-2">
+              {participants.map((p) => (
+                <li key={p.id}>
+                  <Link
+                    href={`/p/${p.id}`}
+                    className="flex min-h-15 items-center justify-between gap-3 rounded-card bg-white py-2 pr-4 pl-[18px] text-[21px] font-semibold text-forest shadow-card transition-transform hover:bg-white/80 focus-visible:outline-3 focus-visible:outline-pine active:scale-[0.99] motion-reduce:transition-none"
+                  >
+                    <span className="min-w-0 break-words">{p.full_name}</span>
+                    {p.has_password ? (
+                      <span className="flex shrink-0 items-center gap-1.5 text-[13px] font-bold text-pine">
+                        {t("joined")}
+                        <JoinedCheckIcon className="text-pine" />
+                      </span>
+                    ) : (
+                      <ChevronRightIcon size={20} className="shrink-0 text-moss/70" />
+                    )}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <p className="text-center text-[15px] text-moss">
+            {t("progress", { joined, total: participants.length })}
           </p>
-        ) : (
-          <p className="text-[15px] leading-snug">
-            <strong className="font-bold">{t("dbUnreachable")}</strong>{" "}
-            <span className="text-mist">{t("dbCheckEnv")}</span>
-          </p>
-        )}
-      </section>
-
-      <button
-        type="button"
-        className="mt-auto h-14 rounded-card bg-red text-lg font-bold text-white shadow-[0_6px_16px_rgb(193_18_31/0.25)] transition-transform active:scale-[0.98] motion-reduce:transition-none"
-      >
-        {t("primaryButton")}
-      </button>
+        </>
+      )}
     </main>
-  );
-}
-
-function GiftIcon() {
-  return (
-    <svg
-      width="26"
-      height="26"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className="text-red"
-    >
-      <rect x="3" y="8" width="18" height="4" rx="1" />
-      <path d="M12 8v13" />
-      <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" />
-      <path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5" />
-    </svg>
   );
 }

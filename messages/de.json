@@ -7,7 +7,8 @@
     "showPassword": "Passwort anzeigen",
     "hidePassword": "Passwort verbergen",
     "cancel": "Abbrechen",
-    "liveUpdates": "Diese Seite aktualisiert sich von selbst."
+    "liveUpdates": "Diese Seite aktualisiert sich von selbst.",
+    "genericError": "Etwas ist schiefgelaufen. Versuch es gleich noch einmal."
   },
   "language": {
     "label": "Sprache",
@@ -20,29 +21,13 @@
   "metadata": {
     "description": "Unsere Familien-Wichtelauslosung"
   },
-  "home": {
-    "title": "Bald geht's los",
-    "intro": "Das App-Gerüst steht. Die Anmeldung folgt in einer späteren Phase.",
-    "paletteHeading": "Farbpalette",
-    "colors": {
-      "red": "Weihnachtsrot",
-      "pine": "Tannengrün",
-      "gold": "Warmes Gold",
-      "snow": "Schneeweiß",
-      "forest": "Tiefes Waldgrün"
-    },
-    "dbConnected": "Verbindung zu Supabase steht.",
-    "dbParticipants": "{count, plural, one {# Teilnehmer} other {# Teilnehmende}} in der Datenbank.",
-    "dbUnreachable": "Supabase nicht erreichbar.",
-    "dbCheckEnv": "Prüfe die Umgebungsvariablen in Vercel.",
-    "primaryButton": "Hauptschaltfläche"
-  },
   "picker": {
     "title": "Wer bist du?",
     "intro": "Tippe auf deinen Namen, um dich anzumelden.",
     "listLabel": "Teilnehmende",
     "joined": "Dabei",
-    "progress": "{joined} von {total} {joined, plural, one {ist} other {sind}} dabei"
+    "progress": "{joined} von {total} {joined, plural, one {ist} other {sind}} dabei",
+    "empty": "Noch steht niemand auf der Liste. Bitte die Admin-Person, alle hinzuzufügen."
   },
   "setPassword": {
     "eyebrow": "Zum ersten Mal hier",
@@ -54,7 +39,8 @@
     "mismatch": "Die Passwörter stimmen nicht überein.",
     "alreadyClaimed": "Für diesen Namen wurde gerade ein Passwort gesetzt. Wenn du das nicht warst, frag die Admin-Person.",
     "submit": "Passwort speichern",
-    "drawNote": "Die Auslosung startet von selbst, sobald alle dabei sind."
+    "drawNote": "Die Auslosung startet von selbst, sobald alle dabei sind.",
+    "tooLong": "Das Passwort darf höchstens {max} Zeichen haben."
   },
   "enterPassword": {
     "eyebrow": "Willkommen zurück",
@@ -62,7 +48,8 @@
     "wrongPassword": "Das Passwort stimmt nicht. Versuch es noch einmal.",
     "forgotTitle": "Vergessen?",
     "forgotBody": "Bitte die Admin-Person, dein Passwort zurückzusetzen. Beim nächsten Mal legst du ein neues fest.",
-    "submit": "Anmelden"
+    "submit": "Anmelden",
+    "tooManyAttempts": "Zu viele Versuche. Warte eine Minute und versuch es dann noch einmal."
   },
   "waiting": {
     "greeting": "Hallo, {name}",
@@ -83,6 +70,13 @@
     "buyingFor": "Du beschenkst",
     "secretTitle": "Psst, nicht verraten!",
     "secretBody": "Nur du siehst diesen Namen. Er ist bei jeder Anmeldung hier."
+  },
+  "me": {
+    "title": "Du bist dabei!",
+    "placeholder": "Du bist angemeldet. Bald siehst du hier den Warteraum und dein Geschenk.",
+    "adminLink": "Admin-Bereich öffnen",
+    "notOnListTitle": "Du stehst nicht mehr auf der Liste",
+    "notOnListBody": "Die Admin-Person hat deinen Namen entfernt. Melde dich ab und frag nach, falls das ein Versehen war."
   },
   "admin": {
     "badge": "Admin",
@@ -163,7 +157,8 @@
       "body": "Füge alle Teilnehmenden hinzu, verbinde die Ehepaare und teile dann den Link mit der Gruppe.",
       "warning": "Füge die ganze Gruppe hinzu, bevor du den Link teilst: Die Auslosung startet, sobald alle auf der Liste ein Passwort haben.",
       "cta": "Erste Person hinzufügen"
-    }
+    },
+    "comingSoon": "Der Admin-Bereich ist unterwegs."
   },
   "loading": {
     "names": "Namen werden geladen…"

@@ -19,6 +19,21 @@ Mobile-first Secret Santa web app for one family. Spec, mockups and the stage pl
 - `<LanguageSwitcher tone="light" | "dark" />` (Server Component) posts to the `setLocale` Server Action, which sets the cookie for a year; the route re-renders in the new language. Put it on every screen.
 - Server Components: `getTranslations("namespace")`. Client Components: `useTranslations("namespace")` (the root layout wraps everything in `NextIntlClientProvider`).
 
+## Routes and sign-in
+
+| Route | Who | What |
+| --- | --- | --- |
+| `/` | signed out | Name picker (`listParticipants`) |
+| `/p/[id]` | signed out | Set password (first visit) or enter password; Server Actions in `src/app/p/[id]/actions.ts` |
+| `/me` | signed in | Participant home (waiting room / reveal from stage 4) |
+| `/admin` | signed in admin | Admin panel; `src/app/admin/layout.tsx` checks `is_admin` |
+
+- `src/lib/supabase/proxy.ts` redirects signed-in visitors away from `/` and `/p/*` to `/me`, and signed-out visitors away from `/me` and `/admin` to `/`.
+- Login uses a synthetic email `<participant-id>@santa.local` (`src/lib/auth/participant-email.ts`). Passwords: 6–72 characters.
+- `setPassword`: admin client creates the auth user, then claims the participant with `update … where auth_user_id is null`; if nobody was claimed, the new auth user is deleted (`alreadyClaimed`). Claiming fires the draw trigger.
+- Current user: `getCurrentParticipant()` in `src/lib/participants.ts` (`null` = signed out, `{ participant: null }` = signed in but removed by the admin).
+- Public sign-ups must stay disabled in Supabase Auth; only the `setPassword` action creates users.
+
 ## Supabase clients (`src/lib/supabase/`)
 
 | File | Use from | Acts as |
@@ -49,6 +64,7 @@ Never read `assignments` with the admin client. Results must stay private via RL
 
 - Design at 390 px first, one column, 16 px side padding (`px-4`), primary button pinned to the bottom.
 - Body text ≥ 16 px, names 20–24 px, tap targets ≥ 44 px.
-- Colours only through tokens: `red`, `red-dark`, `pine`, `pine-light`, `gold`, `gold-light`, `snow`, `sand`, `forest`, `moss`, `mist`, `error`. Gold only on dark surfaces or decoration.
+- Colours only through tokens: `red`, `red-dark`, `pine`, `pine-light`, `gold`, `gold-light`, `snow`, `sand`, `forest`, `moss`, `mist`, `ink`, `paper`, `line`, `divider`, `error`, `error-soft`. Gold only on dark surfaces or decoration.
+- Shared UI in `src/components/`: `icons.tsx`, `PasswordField`, `SubmitButton`, `SignOutButton`, `LanguageSwitcher`.
 - Respect `prefers-reduced-motion` for every animation.
 - All user-facing copy goes through translations (PL / EN / DE) from stage 2 on.
