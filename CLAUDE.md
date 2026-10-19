@@ -29,8 +29,10 @@ Never read `assignments` with the admin client. Results must stay private via RL
 ## Workflow
 
 - One branch per stage (`feat/01-scaffold`, `feat/02-i18n`, …), PR into `main`. Vercel builds a preview for each push.
+- Commit messages, PR titles and PR descriptions are always in English (chat with Bartek stays in Polish).
+- `gh pr create` fails (GraphQL is blocked) — open PRs with `gh api repos/barlima/secret-santa/pulls -f title=… -f head=… -f base=main -F body=@file.md`.
 - npm can't reach the registry from cloud Claude sessions. Verify through GitHub Actions (`gh run view --log-failed`) and Vercel build status (`gh api repos/barlima/secret-santa/commits/<sha>/statuses`). The Vercel connector gets 403 for the team — don't rely on it.
-- No `package-lock.json` yet: CI falls back to `npm install`. Bartek generates and commits the lockfile locally (`npm install`); cloud sessions can't (no npm registry, no artifact downloads).
+- `package-lock.json` is committed; CI runs `npm ci`. Cloud sessions can't update it (no npm registry, no artifact downloads), so when adding a dependency, ask Bartek to run `npm install <pkg>` locally and push the lockfile.
 - Vercel build logs aren't reachable from cloud sessions. `vercel.json` pins the Next.js preset (the project was created before the app existed, as "Other").
 - Secrets never go into the repo or chat. `SUPABASE_SECRET_KEY` is read only in `admin.ts`.
 
